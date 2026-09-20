@@ -1,0 +1,229 @@
+\documentclass[conference]{IEEEtran}
+\usepackage[utf8]{inputenc}
+\usepackage[spanish]{babel}
+\usepackage{amsmath,amssymb}
+\usepackage{booktabs}
+\usepackage{multirow}
+\usepackage{graphicx}
+\usepackage{float}
+\usepackage{hyperref}
+\usepackage{enumitem}
+\usepackage{array}
+\usepackage{url}
+\usepackage{pifont}
+\usepackage{microtype}
+
+\title{Análisis exploratorio de datos y formulación del problema de churn\break en clientes de telecomunicaciones}
+
+\author{
+\IEEEauthorblockN{Equipo de Proyecto 1}
+\IEEEauthorblockA{Universidad\,--\, Curso de Machine Learning\\
+Proyecto Final -- Etapa 1}
+}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+El churn de clientes es un problema crítico en el sector de telecomunicaciones, ya que afecta directamente la retención, la rentabilidad y la sostenibilidad de los negocios. Este trabajo presenta el análisis exploratorio de datos (EDA) del conjunto \textit{WA\_Fn-UseC\_-Telco-Customer-Churn.csv}, con el objetivo de formular el problema, caracterizar el dataset y detectar patrones asociados con la deserción de clientes. Se aborda una tarea de clasificación binaria en la que la variable objetivo \texttt{Churn} indica si un cliente abandona el servicio o no. El análisis revela un desbalance de clases, relaciones claras entre el tipo de contrato, el servicio de internet y la tasa de churn, así como problemas de calidad de datos en la variable \texttt{TotalCharges}, que requieren tratamiento previo antes del entrenamiento de modelos predictivos. Este estudio constituye la base metodológica para la siguiente etapa de modelado y evaluación.
+\end{abstract}
+
+\begin{IEEEkeywords}
+Machine Learning, churn, telecomunicaciones, clasificación binaria, EDA, análisis exploratorio.
+\end{IEEEkeywords}
+
+\section{Introducción}
+La retención de clientes es una de las principales prioridades estratégicas en las empresas de telecomunicaciones. En mercados altamente competitivos, la pérdida de clientes no solo reduce los ingresos mensuales, sino que además incrementa los costos asociados a la adquisición de nuevos usuarios y puede deteriorar la estabilidad del portafolio de clientes. En este contexto, comprender qué factores explican la salida de clientes resulta esencial para diseñar políticas de retención, mejorar la experiencia del usuario y optimizar los servicios ofrecidos.
+
+El problema de\textit{ churn } se define como la decisión de un cliente de abandonar un servicio o cambiar de proveedor. En la práctica, este fenómeno resulta observable a través de datos históricos de comportamiento, uso del servicio, duración del contrato y variables de facturación. La capacidad de identificar tempranamente a clientes con alto riesgo de churn permite a la empresa intervenir de forma proactiva antes de que el cliente abandone por completo.
+
+Este proyecto se centra en el análisis del conjunto de datos \textit{Telco Customer Churn}, una base ampliamente usada en el contexto de la predicción de retención. El objetivo principal es comprender el problema de churn desde una perspectiva estadística y analítica, formular la tarea de Machine Learning y preparar la base para el modelado supervisado en etapas posteriores. La investigación se guía por preguntas específicas, como: ¿qué variables están asociadas con la deserción?, ¿existe una relación fuerte entre la duración del contrato y la tasa de abandono?, ¿los servicios adicionales y la calidad del servicio influyen en la decisión de salir del sistema?, y ¿qué aspectos de calidad de datos deben corregirse antes de entrenar un modelo?
+
+El documento se organiza de la siguiente forma: en la Sección II se formaliza el problema y los objetivos del proyecto; en la Sección III se describe el dataset y sus variables; en la Sección IV se presenta el análisis exploratorio de datos; en la Sección V se revisan observaciones sobre calidad de datos y posibles problemas de leakage; finalmente, en la Sección VI se describen los hallazgos y las siguientes etapas del proyecto.
+
+\section{Formulación del problema}
+El problema de churn puede representarse como una tarea de clasificación supervisada binaria. Dado un conjunto de observaciones $\mathbf{x}_i$ que describen a cada cliente, se busca aprender una función $f(\mathbf{x}_i)$ tal que:
+
+\begin{equation}
+\hat{y}_i = f(\mathbf{x}_i) \in \{\text{No}, \text{Yes}\}
+\end{equation}
+
+donde $\hat{y}_i$ representa la predicción respecto a si el cliente abandona el servicio (\texttt{Yes}) o no (\texttt{No}).
+
+El conjunto de variables de entrada incluye características demográficas, condiciones del contrato, servicios contratados, pagos y métricas de uso. La variable objetivo, \texttt{Churn}, es binaria y resume la decisión final del cliente respecto a su continuidad con el proveedor.
+
+Desde la perspectiva del aprendizaje automático, el reto principal no solo reside en la predicción, sino en la correcta identificación de clientes en riesgo. Esto exige un análisis robusto de las relaciones entre variables, así como una evaluación orientada a métricas sensibles al desbalance de clases. En este tipo de problemas, la métrica de exactitud (accuracy) por sí sola puede ser engañosa, porque un modelo que predice la clase mayoritaria puede mostrar un rendimiento alto sin detectar de manera efectiva a los clientes que abandonan.
+
+Los objetivos principales del proyecto son:
+\begin{itemize}[leftmargin=*]
+ \item comprender el contexto del problema y su relevancia empresarial;
+ \item caracterizar el dataset y sus variables relevantes;
+ \item detectar patrones de churn en los datos;
+ \item identificar riesgo de leakage, faltantes y anomalías;
+ \item preparar una base metodológica sólida para la etapa de modelado predictivo.
+\end{itemize}
+
+\section{Datos y descripción del dataset}
+El conjunto de datos analizado es \texttt{WA\_Fn-UseC\_-Telco-Customer-Churn.csv} y se emplea como base para el estudio del churn en telecomunicaciones. El archivo contiene información de 7.043 clientes y 21 columnas, incluyendo variables demográficas, de servicio, de cuenta y de facturación.
+
+\subsection{Variable objetivo}
+La variable objetivo del problema es \texttt{Churn}, que indica si el cliente abandonó el servicio en el último periodo observado. Esta variable se codifica como:
+\begin{itemize}[leftmargin=*]
+ \item \texttt{No}: el cliente no abandonó;
+ \item \texttt{Yes}: el cliente abandonó el servicio.
+\end{itemize}
+
+\subsection{Variables del dataset}
+Las variables del dataset pueden organizarse en varios grupos:
+
+\begin{itemize}[leftmargin=*]
+ \item \textbf{Identificación:} \texttt{customerID}.
+ \item \textbf{Demográficas:} \texttt{gender}, \texttt{SeniorCitizen}, \texttt{Partner}, \texttt{Dependents}.
+ \item \textbf{Servicios:} \texttt{PhoneService}, \texttt{MultipleLines}, \texttt{InternetService}, \texttt{OnlineSecurity}, \texttt{OnlineBackup}, \texttt{DeviceProtection}, \texttt{TechSupport}, \texttt{StreamingTV}, \texttt{StreamingMovies}.
+ \item \textbf{Cuenta y facturación:} \texttt{tenure}, \texttt{Contract}, \texttt{PaperlessBilling}, \texttt{PaymentMethod}, \texttt{MonthlyCharges}, \texttt{TotalCharges}.
+\end{itemize}
+
+La variable \texttt{customerID} corresponde a un identificador único del cliente y, en términos predictivos, no aporta valor para la clasificación. Su exclusión en la etapa de modelado es recomendable para evitar introducir ruido y sobreajuste.
+
+\subsection{Características del conjunto de datos}
+El dataset presenta un número considerable de variables categóricas, especialmente en el grupo de servicios y contrato, junto con algunas variables numéricas como \texttt{tenure}, \texttt{MonthlyCharges} y \texttt{TotalCharges}. Esto hace que la etapa de preprocesamiento sea esencial, ya que la mayoría de los modelos requieren una representación numérica de los atributos categóricos.
+
+Además, se detectó que \texttt{TotalCharges} se había leído como un tipo no numérico al cargar el archivo. Este detalle es importante porque la variable no solo afecta a la calidad del análisis descriptivo, sino que también es fundamental para la modelización posterior.
+
+\section{Análisis exploratorio de datos (EDA)}
+El análisis exploratorio se centra en la comprensión de la distribución del conjunto de datos, la relación entre variables y la variable objetivo, y la detección de posibles problemas que puedan afectar el entrenamiento de modelos.
+
+\subsection{Distribución de la variable objetivo}
+La variable objetivo presenta una distribución no balanceada, con una clara predominancia de clientes que no abandonan el servicio. La tasa observada fue la siguiente:
+
+\begin{table}[H]
+\centering
+\caption{Distribución de la variable objetivo \texttt{Churn}}
+\small
+\begin{tabular}{lrr}
+\toprule
+Clase & Conteo & Porcentaje \\
+\midrule
+\texttt{No} & 5.174 & 73.46\% \\
+\texttt{Yes} & 1.869 & 26.54\% \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+La proporción de churn es aproximadamente $26.5\%$, lo cual indica que el conjunto no es balanceado. Esto tiene dos implicaciones importantes: por una parte, la clase positiva es menos frecuente y por tanto más difícil de detectar; por otra, la elección de métricas de evaluación debe favorecer indicadores que no dependan exclusivamente de la exactitud global.
+
+\subsection{Variables numéricas y comportamiento por churn}
+Las variables numéricas del dataset se revisaron en términos de tendencia central, dispersión y relación con la clase objetivo. Las más relevantes fueron:\
+\texttt{tenure}, \texttt{MonthlyCharges} y \texttt{TotalCharges}.
+
+Los hallazgos más relevantes fueron los siguientes:
+\begin{itemize}[leftmargin=*]
+ \item Los clientes con mayor antigüedad en el servicio presentan menor tendencia a abandonar.
+ \item Los clientes con contratos más costosos o servicios más intensivos suelen mostrar mayores tasas de churn.
+ \item \texttt{TotalCharges} está estrechamente relacionado con la permanencia del cliente y con el acumulado de su gasto mensual.
+\end{itemize}
+
+Este patrón es intuitivo: quienes permanecen más tiempo en la relación comercial tienden a tener mayor lealtad, mientras que los clientes con contratos más cortos o más volátiles presentan mayor riesgo de abandono. Además, la relación entre costo y churn sugiere que el valor percibido del servicio y la competencia entre proveedores puede influir en la decisión de continuar o cancelar.
+
+\subsection{Variables categóricas y patrones de churn}
+El análisis de variables categóricas aportó información especialmente útil para comprender la dinámica del churn. Entre las más informativas, destacan las siguientes:
+
+\subsubsection{Tipo de contrato}
+El tipo de contrato se comporta como una de las principales señales de retención. La proporción de churn aumenta significativamente en clientes con contratos mensuales, mientras que disminuye drásticamente en contratos anuales o bianuales.
+
+\begin{table}[H]
+\centering
+\caption{Tasa de churn por tipo de contrato}
+\small
+\begin{tabular}{lrr}
+\toprule
+Contrato & \% No & \% Yes \\
+\midrule
+Month-to-month & 57.3 & 42.7 \\
+One year & 88.7 & 11.3 \\
+Two year & 97.2 & 2.8 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+Este fenómeno sugiere que la estabilidad contractual se asocia con mayor lealtad. Los clientes con contratos más largos suelen estar más integrados en el servicio y menos propensos a abandonar.
+
+\subsubsection{Servicio de internet}
+La categoría \texttt{InternetService} también presenta una relación clara con churn. Los clientes con \texttt{Fiber optic} muestran una tasa mucho mayor de abandono en comparación con quienes usan \texttt{DSL} o no cuentan con servicio de internet. Esto puede indicar que la percepción de calidad del servicio, la velocidad o el valor percibido del plan influyen en la decisión de continuidad.
+
+\begin{table}[H]
+\centering
+\caption{Tasa de churn por tipo de servicio de internet}
+\small
+\begin{tabular}{lrr}
+\toprule
+InternetService & \% No & \% Yes \\
+\midrule
+DSL & 81.0 & 19.0 \\
+Fiber optic & 58.1 & 41.9 \\
+No & 92.6 & 7.4 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\subsubsection{Servicios complementarios}
+Los servicios de soporte y protección, como \texttt{OnlineSecurity}, \texttt{TechSupport}, \texttt{OnlineBackup} y \texttt{DeviceProtection}, presentan un patrón consistente: los clientes que no tienen dichos servicios o no los consideran valiosos tienen mayores tasas de churn. Por el contrario, los clientes con servicios adicionales y más robustos muestran una mayor permanencia.
+
+\subsubsection{Método de pago}
+La variable \texttt{PaymentMethod} también ofrece señales relevantes. El pago mediante \texttt{Electronic check} es el método con mayor tasa de churn, mientras que los pagos automáticos o por transferencia se asocian con menor abandono. Esto podría reflejar una menor satisfacción o un mayor nivel de fricción asociada con pagos manuales y menos automatizados.
+
+\section{Calidad de datos y posibles riesgos de leakage}
+La fase de EDA no solo sirve para identificar patrones relevantes del negocio, sino también para detectar problemas de calidad que deben corregirse antes del entrenamiento. En el conjunto analizado, se observaron varios puntos críticos.
+
+\subsection{Valores faltantes}
+Tras la conversión de \texttt{TotalCharges} a tipo numérico, el análisis de datos faltantes mostró que la variable presenta 11 registros con valor faltante. Esto no es un número crítico en términos absolutos, pero sí requiere un tratamiento explícito para evitar problemas durante el preprocesamiento.
+
+\subsection{Outliers}
+Se aplicó una comprobación con el método IQR para las variables numéricas principales. En este caso no se observaron outliers severos en \texttt{tenure}, \texttt{MonthlyCharges} ni \texttt{TotalCharges}. La ausencia de valores extremos muy marcados indica que las variables no presentan distorsiones artificiales significativas.
+
+\subsection{Data leakage}
+El análisis de posibles fugas de información (data leakage) es crucial. Se identifican los siguientes aspectos:
+\begin{itemize}[leftmargin=*]
+ \item \texttt{customerID} es un identificador único, por lo que no aporta valor predictivo para la clasificación.
+ \item \texttt{TotalCharges} puede estar correlacionada con \texttt{MonthlyCharges} y \texttt{tenure}; aunque no necesariamente es leak, debe manejarse con cuidado para evitar información redundante.
+ \item Variables como \texttt{Contract} y servicios asociados pueden estar correlacionadas entre sí, lo cual puede dar lugar a multicolinealidad en ciertos modelos.
+\end{itemize}
+
+Es importante distinguir entre variables históricas y variables que reflejen el estado de la relación en el momento de predicción. En una etapa posterior, debe garantizarse que el conjunto de entrenamiento no incluya información que no sería accesible al momento de tomar la decisión de retención.
+
+\section{Hallazgos clave y discusión preliminar}
+A partir del análisis exploratorio, se concluye que el churn en telecomunicaciones es un fenómeno complejo, pero claramente asociado a determinadas características del cliente y del servicio. Los hallazgos más relevantes son:
+\begin{itemize}[leftmargin=*]
+ \item El conjunto es desbalanceado; la clase positiva representa aproximadamente $26.5\%$ del total.
+ \item El tipo de contrato es uno de los predictores más informativos; los contratos de menor duración tienen mayor churn.
+ \item El servicio de internet, especialmente \texttt{Fiber optic}, está fuertemente asociado a tasas de abandono más altas.
+ \item Los servicios adicionales y la calidad del servicio desempeñan un papel importante en la permanencia del cliente.
+ \item Las variables de facturación y antigüedad del servicio son clave para caracterizar la lealtad del cliente.
+\end{itemize}
+
+Estos hallazgos permiten formular una hipótesis clara: el riesgo de churn se incrementa cuando el cliente tiene un contrato corto, servicios intensivos o menos completos, y una percepción menor del valor del servicio. Esta hipótesis debe verificarse formalmente con modelos de aprendizaje supervisado en etapas posteriores.
+
+\section{Conclusiones preliminares y próximos pasos}
+Este primer trabajo establece la base metodológica del proyecto. A partir del EDA se confirma que el problema de churn es relevante, económico y técnico, y que el conjunto de datos cuenta con señales socioeconómicas y de servicio con alto potencial predictivo. El análisis también mostró la necesidad de un tratamiento específico para la calidad de datos y para la preparación del conjunto antes del modelado.
+
+Los siguientes pasos del proyecto son los siguientes:
+\begin{enumerate}[leftmargin=*]
+ \item definir el conjunto de variables definitivas para modelado;
+ \item eliminar identificadores, corregir valores faltantes y codificar variables categóricas;
+ \item establecer un baseline simple de clasificación;
+ \item entrenar y comparar al menos dos modelos supervisados;
+ \item usar métricas apropiadas para clasificación desbalanceada;
+ \item interpretar resultados y discutir limitaciones y oportunidades de mejora.
+\end{enumerate}
+
+Este trabajo representa la primera etapa del proyecto final y prepara el terreno para la segunda fase, en la cual se realizará el modelado predictivo, la validación experimental y la comparación de algoritmos.
+
+\begin{thebibliography}{9}
+\bibitem{telco_dataset} Telco Customer Churn Dataset, IBM / public sample data repository used for customer retention analysis.
+\bibitem{guide} Guía del proyecto final de Machine Learning, Universidad UTEC, documento de referencia del curso.
+\bibitem{pandas} Pandas Development Team, \emph{pandas: powerful Python data analysis toolkit}, 2024.
+\bibitem{matplotlib} Hunter, J. D., \emph{Matplotlib: A 2D graphics environment}, Computing in Science \& Engineering, 9(3), 2007.
+\bibitem{seaborn} Waskom, M. L., \emph{seaborn: statistical data visualization}, Journal of Open Source Software, 6(60), 2021.
+\end{thebibliography}
+
+\end{document}

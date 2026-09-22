@@ -1,0 +1,37 @@
+\subsection{Comparaciones conjuntas}
+
+Se agrupa \var{tenure} en 0--12, 13--24, 25--48 y 49--72 meses para distinguir hasta un año, el 
+segundo año, entre dos y cuatro años y más de cuatro años de permanencia. Estos intervalos se eligieron 
+para facilitar la comparación y no fueron definidos por un modelo. La variable original se conserva sin 
+modificar. Las proporciones se calculan dentro de cada combinación, aunque los intervalos tengan distinta 
+amplitud.
+
+La Fig.~\ref{fig:contrato_tiempo} muestra que los contratos mensuales presentan más abandono dentro de 
+cada intervalo. En 0--12 meses, las tasas son 51.35\%, 10.48\% y 0\% para contratos mensuales, anuales y 
+de dos años. Sin embargo, los tamaños respectivos son 1994, 124 y 68 clientes.  En el grupo de 68 clientes 
+no se observaron abandonos, pero eso no significa que su probabilidad real sea cero. En 49--72 meses las 
+tasas son 26.02\%, 12.93\% y 3.33\%, con 342, 634 y 1263 clientes.
+
+\begin{figure}[t]
+    \centering\includegraphics[width=\columnwidth]{contrato_antiguedad.png}
+    \caption{Porcentaje de abandono dentro de cada combinación de contrato y antigüedad. 
+    Cada intervalo corresponde a un grupo distinto de clientes.}
+    \label{fig:contrato_tiempo}
+\end{figure}
+
+La diferencia entre contratos se mantiene dentro de estos grupos de antigüedad. Aun así, los intervalos 
+son amplios y quedan otras características sin comparar. Tampoco puede interpretarse que permanecer más 
+meses reduzca por sí mismo el riesgo de abandono.
+
+Al separar por contrato, la fibra también mantiene mayor abandono que DSL (Fig.~\ref{fig:contrato_internet}). 
+Las tasas son 54.61\% frente a 32.22\% en contratos mensuales, 19.29\% frente a 9.30\% en anuales y 
+7.23\% frente a 1.91\% en contratos de dos años. Las combinaciones de fibra y DSL cuentan, respectivamente, 
+con 2128 y 1223 clientes mensuales, 539 y 570 anuales, y 429 y 628 de dos años. La diferencia no desaparece 
+al separar por contrato, aunque todavía podrían intervenir cargos, antigüedad u otros atributos.
+
+\begin{figure}[t]
+    \centering\includegraphics[width=\columnwidth]{contrato_internet.png}
+    \caption{Abandono según servicio de internet dentro de cada contrato. La categoría sin internet se 
+    distingue de DSL y fibra.}
+    \label{fig:contrato_internet}
+\end{figure}

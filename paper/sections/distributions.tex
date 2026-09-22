@@ -1,0 +1,73 @@
+\subsection{Distribución de clases}
+Hay 5174 clientes con \var{Churn=No} (73.46\%) y 1869 con \var{Churn=Yes} (26.54\%), como muestra 
+la Fig.~\ref{fig:balance}. La clase positiva es minoritaria, pero ese hecho no determina por sí 
+solo cuán difícil será clasificarla. Un modelo que siempre prediga No obtendría 73.46\% 
+de exactitud, pero no detectaría ningún abandono. Por eso, la evaluación también debe considerar 
+cuántos abandonos detecta el modelo y cuántas falsas alertas genera.
+
+\begin{figure}[t]
+    \centering\includegraphics[width=\columnwidth]{balance.png}
+    \caption{Distribución del abandono en los 7043 clientes. Las etiquetas muestran cantidad y 
+    porcentaje de cada clase.}
+    \label{fig:balance}
+\end{figure}
+
+\subsection{Distribuciones numéricas y comparación por abandono}
+La Tabla~\ref{tab:numericas} presenta las estadísticas descriptivas. La antigüedad mediana es 29 meses 
+y su mitad central se encuentra entre 9 y 55 meses. En el cargo acumulado, la media de 2283.30 supera a 
+la mediana de 1397.48, en concordancia con una distribución extendida hacia montos altos. El cargo mensual 
+presenta el orden contrario, con media de 64.76 y mediana de 70.35.
+
+\begin{table}[t]
+    \caption{Resumen de variables cuantitativas}
+    \label{tab:numericas}\centering\footnotesize
+    \begin{tabular}{@{}lrrr@{}}\toprule
+        Medida & Antigüedad & Cargo mensual & Cargo acumulado\\\midrule
+        Observaciones & 7043 & 7043 & 7032\\
+        Media & 32.37 & 64.76 & 2283.30\\
+        Mediana & 29.00 & 70.35 & 1397.48\\
+        Desv. estándar & 24.56 & 30.09 & 2266.77\\
+        Q1 & 9.00 & 35.50 & 401.45\\
+        Q3 & 55.00 & 89.85 & 3794.74\\
+        Mínimo & 0.00 & 18.25 & 18.80\\
+        Máximo & 72.00 & 118.75 & 8684.80\\\bottomrule
+    \end{tabular}
+\end{table}
+
+Entre quienes abandonaron, la antigüedad mediana es 10 meses, frente a 38 meses entre quienes no 
+abandonaron. Su cargo mensual mediano es mayor (79.65 frente a 64.43), pero su cargo acumulado mediano 
+es menor (703.55 frente a 1683.60). Una persona puede pagar más por mes y acumular menos si lleva menos 
+tiempo contratando el servicio. Las cajas de la Fig.~\ref{fig:boxplots} también se superponen, por lo que 
+estas características no separan perfectamente a quienes abandonaron de quienes no lo hicieron.
+
+\begin{figure*}[t]
+    \centering\includegraphics[width=\textwidth]{boxplots.png}
+    \caption{Antigüedad, cargo mensual y cargo acumulado según abandono. No y Yes indican ausencia y 
+    presencia de abandono registrado. Los puntos fuera de los bigotes se determinan dentro de cada grupo.}
+    \label{fig:boxplots}
+\end{figure*}
+
+Los histogramas muestran concentraciones de quienes abandonaron en antigüedades y cargos 
+acumulados bajos. Muestran cantidades de clientes, así que las diferencias de altura también reflejan el 
+distinto tamaño de los grupos. Por eso, no deben interpretarse como probabilidades de abandono por intervalo.
+
+\subsection{Correlaciones entre variables cuantitativas}
+
+Como se observa en la Fig.~\ref{fig:pearson}, la correlación de Pearson entre antigüedad y 
+cargo acumulado es 0.826; entre cargo mensual y acumulado, 0.651; y entre antigüedad y 
+cargo mensual, 0.248. El acumulado está asociado con el tiempo y los pagos, pero no
+necesariamente equivale a multiplicar los meses por el cargo mensual actual. Estas asociaciones 
+no justifican eliminar automáticamente una variable ni constituyen por sí solas una fuga 
+de información.
+
+Para cada correlación se utilizan los clientes con datos disponibles en ambas variables. 
+Las comparaciones que incluyen el cargo acumulado consideran 7032 clientes, mientras que 
+la comparación entre antigüedad y cargo mensual utiliza los 7043.
+
+\begin{figure}[t]
+    \centering
+    \includegraphics[width=\columnwidth]{pearson.png}
+    \caption{Matriz de correlación de Pearson entre antigüedad,
+    cargo mensual y cargo acumulado.}
+    \label{fig:pearson}
+\end{figure}

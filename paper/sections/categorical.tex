@@ -1,0 +1,53 @@
+\subsection{Variables categóricas y abandono}
+
+Se calculó el porcentaje de abandono respecto al total de clientes de cada categoría. Esta 
+comparación evita confundir una categoría numerosa con una de mayor 
+proporción de abandono. La Tabla~\ref{tab:categorias} reúne contrato, internet y método de pago.
+
+\begin{table}[t]
+    \caption{Clientes y abandono por categorías seleccionadas}
+    \label{tab:categorias}\centering\footnotesize
+    \begin{tabularx}{\columnwidth}{@{}Xrr@{}}\toprule
+        Categoría & Clientes & Abandono (\%)\\\midrule
+        \multicolumn{3}{@{}l}{\textit{Contrato}}\\
+        Mensual & 3875 & 42.71\\
+        Un año & 1473 & 11.27\\
+        Dos años & 1695 & 2.83\\\midrule
+        \multicolumn{3}{@{}l}{\textit{Internet}}\\
+        DSL & 2421 & 18.96\\
+        Fibra óptica & 3096 & 41.89\\
+        Sin internet & 1526 & 7.40\\\midrule
+        \multicolumn{3}{@{}l}{\textit{Método de pago}}\\
+        Cheque electrónico & 2365 & 45.29\\
+        Cheque por correo & 1612 & 19.11\\
+        Transferencia automática & 1544 & 16.71\\
+        Tarjeta de crédito automática & 1522 & 15.24\\\bottomrule
+    \end{tabularx}
+\end{table}
+
+Los contratos mensuales presentan 42.71\% de abandono, frente a 11.27\% y 2.83\% en contratos de uno 
+y dos años. La diferencia entre los extremos es de 39.88 puntos porcentuales. Esta diferencia muestra una 
+asociación con el abandono, aunque los grupos también pueden diferir en antigüedad y servicios. Por eso, 
+cambiar el contrato no garantiza que un cliente permanezca más tiempo.
+
+La fibra óptica presenta 41.89\%, frente a 18.96\% en DSL. Como no se midió la velocidad, las 
+fallas ni la satisfacción, estos resultados no permiten concluir que la fibra sea de peor calidad.
+El cheque electrónico presenta 45.29\%, mientras que los otros métodos se sitúan entre 15.24\% y 
+19.11\%. El método de pago podría estar relacionado con el perfil o contrato de los clientes, pero 
+los datos no permiten confirmar la razón de esta diferencia.
+
+Entre clientes con internet, la ausencia de seguridad en línea se asocia con 41.8\% de abandono, frente a 
+14.6\% cuando se dispone de ella; para soporte técnico, los valores son 41.6\% y 15.2\%. La categoría 
+\emph{No internet service} representa una situación distinta de no contratar el complemento y reúne a los 
+mismos 1526 clientes en varias columnas. No debe contarse como evidencia independiente en cada comparación.
+
+No todos los complementos presentan diferencias similares. Respaldo en línea muestra 39.9\% sin el 
+complemento y 21.5\% con él; protección del dispositivo, 39.1\% y 22.5\%. Las diferencias son menores en 
+streaming de televisión (33.5\% y 30.1\%) y películas (33.7\% y 29.9\%). Estos porcentajes comparan las 
+categorías No y Yes y excluyen a quienes no tienen internet.
+
+En género, los porcentajes son cercanos (26.9\% en Female y 26.2\% en Male). En \var{SeniorCitizen}, 
+la categoría 1 presenta 41.7\%, frente a 23.6\% en la categoría 0. También hay diferencias por pareja 
+(33.0\% sin pareja y 19.7\% con pareja), dependientes (31.3\% y 15.5\%) y facturación sin papel 
+(33.6\% con ella y 16.3\% sin ella). Estas diferencias describen los grupos de la muestra. 
+Todavía falta evaluar cuánto aportan estas variables al modelo y si sus errores varían entre grupos.

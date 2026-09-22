@@ -1,28 +1,11 @@
 \subsection{Calidad de datos y tratamiento de faltantes}
 
 No se encontraron filas duplicadas ni identificadores repetidos. La revisión tampoco detectó cargos o 
-antigüedades negativos, antigüedades no enteras, valores ajenos a 0/1 en \var{SeniorCitizen} ni categorías 
-distintas de Yes/No en \var{Churn}. Se comprobó además la correspondencia entre ausencia de internet y la 
-categoría \emph{No internet service} de los complementos, así como entre ausencia de telefonía y 
-\emph{No phone service}; no hubo inconsistencias en esas comprobaciones.
+antigüedades negativos, antigüedades no enteras, valores ajenos a 0/1 en \var{SeniorCitizen} ni categorías distintas de Yes/No en \var{Churn}. Se comprobó además la correspondencia entre ausencia de internet y la categoría \emph{No internet service} de los complementos, así como entre ausencia de telefonía y \emph{No phone service}; no hubo inconsistencias en esas comprobaciones.
 
-La inspección inicial no reconocía faltantes porque \var{TotalCharges} contenía espacios. Tras convertirla 
-a número aparecieron 11 valores ausentes, equivalentes al 0.16\% de los clientes. Todos presentan 
-\var{tenure=0} y \var{Churn=No}. Esto podría corresponder a clientes recién incorporados al servicio, 
-aunque no permite confirmar que el monto correcto sea cero.
-
-Se mantienen los 7043 clientes y no se imputan cargos durante el EDA. Los resúmenes que requieren 
-\var{TotalCharges} usan sus 7032 valores disponibles. Por tanto, no se elimina una fila de los demás 
-análisis por ese único faltante.
+La inspección inicial no reconocía faltantes porque \var{TotalCharges} contenía espacios. Tras convertirla a número aparecieron 11 valores ausentes, equivalentes al 0.16\% de los clientes. Todos presentan \var{tenure=0} y \var{Churn=No}. Esto podría corresponder a clientes recién incorporados al servicio, aunque no permite confirmar que el monto correcto sea cero. Se mantienen los 7043 clientes y no se imputan cargos durante el EDA. Los resúmenes que requieren \var{TotalCharges} usan sus 7032 valores disponibles. Por tanto, no se elimina una fila de los demás análisis por ese único faltante.
 
 \subsection{Revisión de valores atípicos}
-Se empleó la regla de 1.5 veces el rango intercuartílico, que corresponde a los límites habituales de 
-un boxplot~\cite{nist}. Para $IQR=Q_3-Q_1$, se revisan los valores fuera del intervalo 
-$[Q_1-1.5IQR,Q_3+1.5IQR]$.
+Se empleó la regla de 1.5 veces el rango intercuartílico, que corresponde a los límites habituales de un boxplot~\cite{nist}. Para $IQR=Q_3-Q_1$, se revisan los valores fuera del intervalo $[Q_1-1.5IQR,Q_3+1.5IQR]$.
 
-En la base completa no se identificaron valores fuera de esos límites para las tres variables cuantitativas. 
-Sin embargo, dentro del grupo que abandonó se señalaron 23 valores de antigüedad y 109 de cargo acumulado. 
-Cada grupo tiene sus propios cuartiles, por ello, los resultados globales y por grupo no se contradicen. 
-Los conteos no se suman como clientes distintos, ya que podrían superponerse. Se conservan los valores 
-observados porque estar fuera de estos límites no demuestra que sean incorrectos. Del mismo modo, no 
-encontrar valores atípicos no garantiza que todos los datos estén libres de errores.
+En la base completa no se identificaron valores fuera de esos límites para las tres variables cuantitativas. Sin embargo, dentro del grupo que abandonó se señalaron 23 valores de antigüedad y 109 de cargo acumulado. Cada grupo tiene sus propios cuartiles, por ello, los resultados globales y por grupo no se contradicen. Los conteos no se suman como clientes distintos, ya que podrían superponerse. Se conservan los valores observados porque estar fuera de estos límites no demuestra que sean incorrectos. Del mismo modo, no encontrar valores atípicos no garantiza que todos los datos estén libres de errores.

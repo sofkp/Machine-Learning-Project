@@ -1,33 +1,14 @@
 \section{Introducción y formulación del problema}
 \label{sec:intro}
 
-La retención de clientes es una de las principalesprioridades estratégicas en las 
-empresas de telecomunica-ciones. En mercados altamente competitivos, la pérdida de 
-clientes no solo reduce los ingresos mensuales, sino queademás incrementa los 
-costos asociados a la adquisiciónde nuevos usuarios y puede deteriorar la 
-estabilidad delportafolio de clientes. En este contexto, comprender qué factores 
-explican la salida de clientes resulta esencial para diseñar políticas de retención, 
-mejorar la experiencia del usuario y optimizar los servicios ofrecidos.
+La retención de clientes es una de las principales prioridades estratégicas en las empresas de telecomunica-ciones. En mercados altamente competitivos, la pérdida de clientes no solo reduce los ingresos mensuales, sino queademás incrementa los costos asociados a la adquisición de nuevos usuarios y puede deteriorar la estabilidad del portafolio de clientes. En este contexto, comprender qué factores explican la salida de clientes resulta esencial para diseñar políticas de retención, mejorar la experiencia del usuario y optimizar los servicios ofrecidos.
 
-El problema de \emph{churn} se define como la decisión de uncliente de abandonar un servicio o 
-cambiar de proveedor. En la práctica, este fenómeno resulta observable a través de 
-datos históricos de comportamiento, uso del servicio, duración del contrato y 
-variables de facturación. La capacidad de identificar tempranamente a clientes 
-con alto riesgo de churn permite a la empresa intervenir de forma proactiva antes de 
-que el cliente abandone por completo.
+\emph{Churn} se define como la decisión de uncliente de abandonar un servicio o cambiar de proveedor. En la práctica, este fenómeno resulta observable a través de datos históricos de comportamiento, uso del servicio, duración del contrato y variables de facturación. La capacidad de identificar tempranamente a clientes con alto riesgo de churn permite a la empresa intervenir de forma proactiva antes de que el cliente abandone por completo.
 
-Este proyecto se centra en el análisis del conjunto de datos Telco Customer Churn~\cite{dataset}, 
-una base ampliamente usadaen el contexto de la predicción de retención. IBM 
-lo presenta como información de ejemplo de una empresa ficticia~\cite{ibm}.
+Este proyecto se centra en el análisis del conjunto de datos Telco Customer Churn~\cite{dataset}, una base ampliamente usada en el contexto de la predicción de retención. IBM lo presenta como información de ejemplo de una empresa ficticia~\cite{ibm}.
 
 \subsection{Objetivo}
-El objetivo principal es comprender el problema de churn desde una perspectiva estadística y 
-analítica, formular la tarea de Machine Learning y preparar la base para el 
-modelado supervisado en etapas posteriores. 
-Asimismo, se busca comprender el contexto del problema y su relevancia empresarial; 
-caracterizar el dataset y sus variables relevantes; detectar patrones de churn en los datos;
-identificar riesgo de leakage, faltantes y anomalías; así como preparar una base metodológica
-sólida para la etapa de modelado predictivo.
+El objetivo principal es comprender el problema de churn desde una perspectiva estadística y analítica, formular la tarea de Machine Learning y preparar la base para el modelado supervisado en etapas posteriores. Asimismo, se busca comprender el contexto del problema y su relevancia empresarial; caracterizar el dataset y sus variables relevantes; detectar patrones de churn en los datos; identificar riesgo de leakage, faltantes y anomalías; así como preparar una base metodológica sólida para la etapa de modelado predictivo.
 
 \subsection{Preguntas de investigación}
 \begin{enumerate}
@@ -41,9 +22,7 @@ sólida para la etapa de modelado predictivo.
 
 
 \subsection{Formulación del problema}
-El problema de churn puede representarse como una tarea de clasificación supervisada binaria. 
-Dado un conjunto de observaciones $\mathbf{x}_i$ que describen a cada cliente, se 
-busca aprender una función $f(\mathbf{x}_i)$ tal que:
+El problema de churn puede representarse como una tarea de clasificación supervisada binaria. Dado un conjunto de observaciones $\mathbf{x}_i$ que describen a cada cliente, se busca aprender una función $f(\mathbf{x}_i)$ tal que:
 
 \begin{equation}
 \hat{y}_i = f(\mathbf{x}_i) \in \{\text{No}, \text{Yes}\}
@@ -51,13 +30,7 @@ busca aprender una función $f(\mathbf{x}_i)$ tal que:
 
 donde $\hat{y}_i$ representa la predicción de si el cliente abandona el servicio (\var{Yes}) o no (\var{No}). 
 
-El conjunto de variables de entrada incluye características demográficas, 
-condiciones del contrato, servicios contratados, pagos y métricas de uso. La 
-variable objetivo, Churn, es binaria y resume la decisión final del cliente respecto 
-a su continuidad con el proveedor.
+El conjunto de variables de entrada incluye características demográficas, condiciones del contrato, servicios contratados, pagos y métricas de uso. La variable objetivo, Churn, es binaria y resume la decisión final del cliente respecto a su continuidad con el proveedor.
 
-Desde la perspectiva del aprendizaje automático, el reto principal no solo reside en 
-la predicción, sino en la correcta identificación de clientes en riesgo. Esto exige 
-un análisis robusto de las relaciones entre variables, así como una evaluación 
-orientada a métricas sensibles al desbalance de clases.
+Desde la perspectiva del aprendizaje automático, el reto principal no solo reside en la predicción, sino en la correcta identificación de clientes en riesgo. Esto exige un análisis robusto de las relaciones entre variables, así como una evaluación orientada a métricas sensibles al desbalance de clases.
 

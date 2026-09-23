@@ -31,7 +31,7 @@ Machine-Learning-Project/
 ```
 
 - **`WA_Fn-UseC_-Telco-Customer-Churn.csv`**: datos utilizados en el análisis.
-- **`notebooks/01_eda_telco_churn.ipynb`**: código, gráficos y resultados del EDA.
+- **`01_eda_telco_churn.ipynb`**: código, gráficos y resultados del EDA.
 - **`Grupo10_informe_P1.pdf`**: informe de la etapa P1.
 
 ## Dataset

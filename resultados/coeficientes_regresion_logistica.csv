@@ -1,0 +1,47 @@
+﻿Posición,Columna,Variable,Categoría,Etiqueta,Tipo,Coeficiente,exp(coeficiente),Magnitud,Categoría estructural
+1,num__tenure,tenure,,tenure,numérica,-0.9844983568062865,0.3736266071782013,0.9844983568062865,False
+2,cat__Contract_Month-to-month,Contract,Month-to-month,Contract = Month-to-month,categórica,0.7342295036786061,2.083875755180908,0.7342295036786061,False
+3,cat__Contract_Two year,Contract,Two year,Contract = Two year,categórica,-0.7001237338406033,0.49652386318580366,0.7001237338406033,False
+4,cat__InternetService_Fiber optic,InternetService,Fiber optic,InternetService = Fiber optic,categórica,0.3869739443131348,1.4725181233021616,0.3869739443131348,False
+5,cat__InternetService_DSL,InternetService,DSL,InternetService = DSL,categórica,-0.3144449939546246,0.7301940239259783,0.3144449939546246,False
+6,totalcharges__TotalCharges,TotalCharges,,TotalCharges,numérica,0.292997635202411,1.3404396205595506,0.292997635202411,False
+7,cat__PaymentMethod_Electronic check,PaymentMethod,Electronic check,PaymentMethod = Electronic check,categórica,0.25837083842824604,1.2948188982078315,0.25837083842824604,False
+8,cat__OnlineSecurity_No,OnlineSecurity,No,OnlineSecurity = No,categórica,0.24284354756011026,1.2748691521255362,0.24284354756011026,False
+9,cat__TechSupport_No,TechSupport,No,TechSupport = No,categórica,0.22116378387828373,1.2475277387637347,0.22116378387828373,False
+10,cat__MultipleLines_No,MultipleLines,No,MultipleLines = No,categórica,-0.2012905650595749,0.8176748093034913,0.2012905650595749,False
+11,cat__OnlineSecurity_Yes,OnlineSecurity,Yes,OnlineSecurity = Yes,categórica,-0.17031459720160053,0.8433994437509595,0.17031459720160053,False
+12,num__MonthlyCharges,MonthlyCharges,,MonthlyCharges,numérica,0.161026982822898,1.174716665557978,0.161026982822898,False
+13,cat__StreamingTV_Yes,StreamingTV,Yes,StreamingTV = Yes,categórica,0.14979093358299309,1.1615913675954015,0.14979093358299309,False
+14,cat__TechSupport_Yes,TechSupport,Yes,TechSupport = Yes,categórica,-0.14863483351977386,0.8618837885107484,0.14863483351977386,False
+15,cat__PhoneService_No,PhoneService,No,PhoneService = No,categórica,0.14658267301630795,1.1578706515208979,0.14658267301630795,False
+16,cat__MultipleLines_No phone service,MultipleLines,No phone service,MultipleLines = No phone service,categórica,0.14658267301630795,1.1578706515208979,0.14658267301630795,True
+17,cat__PhoneService_Yes,PhoneService,Yes,PhoneService = Yes,categórica,-0.14658019515259224,0.863656468495209,0.14658019515259224,False
+18,cat__PaperlessBilling_Yes,PaperlessBilling,Yes,PaperlessBilling = Yes,categórica,0.14014430450354273,1.1504398005238154,0.14014430450354273,False
+19,cat__PaperlessBilling_No,PaperlessBilling,No,PaperlessBilling = No,categórica,-0.14014182663982816,0.8692349459845407,0.14014182663982816,False
+20,cat__PaymentMethod_Bank transfer (automatic),PaymentMethod,Bank transfer (automatic),PaymentMethod = Bank transfer (automatic),categórica,-0.13439654242910465,0.8742433212884073,0.13439654242910465,False
+21,cat__StreamingMovies_Yes,StreamingMovies,Yes,StreamingMovies = Yes,categórica,0.12345915968459856,1.1314037967106099,0.12345915968459856,False
+22,cat__OnlineBackup_No,OnlineBackup,No,OnlineBackup = No,categórica,0.11836199468215909,1.1256515174867636,0.11836199468215909,False
+23,cat__PaymentMethod_Credit card (automatic),PaymentMethod,Credit card (automatic),PaymentMethod = Credit card (automatic),categórica,-0.11283707905867056,0.8932961849165074,0.11283707905867056,False
+24,cat__Dependents_No,Dependents,No,Dependents = No,categórica,0.1118989974729084,1.1183998937246038,0.1118989974729084,False
+25,cat__Dependents_Yes,Dependents,Yes,Dependents = Yes,categórica,-0.11189651960919361,0.8941367783364852,0.11189651960919361,False
+26,cat__SeniorCitizen_1,SeniorCitizen,1,SeniorCitizen = 1,categórica,0.08318839879441986,1.0867465309991813,0.08318839879441986,False
+27,cat__SeniorCitizen_0,SeniorCitizen,0,SeniorCitizen = 0,categórica,-0.08318592093070479,0.9201800505839741,0.08318592093070479,False
+28,cat__StreamingTV_No,StreamingTV,No,StreamingTV = No,categórica,-0.07726198322448559,0.9256473177686767,0.07726198322448559,False
+29,cat__InternetService_No,InternetService,No,InternetService = No,categórica,-0.07252647249479383,0.930041125825531,0.07252647249479383,False
+30,cat__OnlineSecurity_No internet service,OnlineSecurity,No internet service,OnlineSecurity = No internet service,categórica,-0.07252647249479383,0.930041125825531,0.07252647249479383,True
+31,cat__OnlineBackup_No internet service,OnlineBackup,No internet service,OnlineBackup = No internet service,categórica,-0.07252647249479383,0.930041125825531,0.07252647249479383,True
+32,cat__DeviceProtection_No internet service,DeviceProtection,No internet service,DeviceProtection = No internet service,categórica,-0.07252647249479383,0.930041125825531,0.07252647249479383,True
+33,cat__TechSupport_No internet service,TechSupport,No internet service,TechSupport = No internet service,categórica,-0.07252647249479383,0.930041125825531,0.07252647249479383,True
+34,cat__StreamingTV_No internet service,StreamingTV,No internet service,StreamingTV = No internet service,categórica,-0.07252647249479383,0.930041125825531,0.07252647249479383,True
+35,cat__StreamingMovies_No internet service,StreamingMovies,No internet service,StreamingMovies = No internet service,categórica,-0.07252647249479383,0.930041125825531,0.07252647249479383,True
+36,cat__DeviceProtection_No,DeviceProtection,No,DeviceProtection = No,categórica,0.07069984258432381,1.073259030859112,0.07069984258432381,False
+37,cat__MultipleLines_Yes,MultipleLines,Yes,MultipleLines = Yes,categórica,0.05471036990698105,1.0562346530289763,0.05471036990698105,False
+38,cat__StreamingMovies_No,StreamingMovies,No,StreamingMovies = No,categórica,-0.0509302093260893,0.9503449934355794,0.0509302093260893,False
+39,cat__OnlineBackup_Yes,OnlineBackup,Yes,OnlineBackup = Yes,categórica,-0.04583304432365005,0.9552014251787099,0.04583304432365005,False
+40,cat__Contract_One year,Contract,One year,Contract = One year,categórica,-0.034103291974287506,0.9664716707146128,0.034103291974287506,False
+41,cat__gender_Female,gender,Female,gender = Female,categórica,0.02311698040493474,1.023386248683045,0.02311698040493474,False
+42,cat__gender_Male,gender,Male,gender = Male,categórica,-0.023114502541220248,0.9771505911415634,0.023114502541220248,False
+43,cat__Partner_No,Partner,No,Partner = No,categórica,0.019699726204556487,1.0198950462865628,0.019699726204556487,False
+44,cat__Partner_Yes,Partner,Yes,Partner = Yes,categórica,-0.019697248340842178,0.9804954750077399,0.019697248340842178,False
+45,cat__PaymentMethod_Mailed check,PaymentMethod,Mailed check,PaymentMethod = Mailed check,categórica,-0.011134739076756358,0.9889270226841531,0.011134739076756358,False
+46,cat__DeviceProtection_Yes,DeviceProtection,Yes,DeviceProtection = Yes,categórica,0.0018291077741840606,1.0018307816121967,0.0018291077741840606,False

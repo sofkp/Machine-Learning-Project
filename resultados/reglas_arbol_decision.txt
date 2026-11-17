@@ -1,0 +1,395 @@
+Raíz: n=4225, abandono=26.5 %
+Si Contract ≠ Month-to-month  [n=1899, abandono=6.3 %]
+|   Si MonthlyCharges ≤ 93.78  [n=1442, abandono=3.7 %]
+|   |   Si OnlineSecurity ≠ No  [n=1138, abandono=2.2 %]
+|   |   |   Si PaymentMethod ≠ Electronic check  [n=1028, abandono=1.7 %]
+|   |   |   |   Si MonthlyCharges ≤ 70.05  [n=784, abandono=0.6 %]
+|   |   |   |   |   Si tenure ≤ 59.50  [n=536, abandono=0.9 %]
+|   |   |   |   |   |   Si tenure ≤ 55.50  [n=483, abandono=0.4 %]
+|   |   |   |   |   |   |   Si Dependents ≠ Yes  [n=244, abandono=0.0 %]
+|   |   |   |   |   |   |   |   → No churn (n=244, abandono=0.0 %)
+|   |   |   |   |   |   |   Si Dependents = Yes  [n=239, abandono=0.8 %]
+|   |   |   |   |   |   |   |   Si gender ≠ Male  [n=118, abandono=1.7 %]
+|   |   |   |   |   |   |   |   |   Si TotalCharges ≤ 743.17  [n=60, abandono=3.3 %]
+|   |   |   |   |   |   |   |   |   |   Si MonthlyCharges ≤ 20.12  [n=32, abandono=0.0 %]
+|   |   |   |   |   |   |   |   |   |   |   → No churn (n=32, abandono=0.0 %)
+|   |   |   |   |   |   |   |   |   |   Si MonthlyCharges > 20.12  [n=28, abandono=7.1 %]
+|   |   |   |   |   |   |   |   |   |   |   → No churn (n=28, abandono=7.1 %)
+|   |   |   |   |   |   |   |   |   Si TotalCharges > 743.17  [n=58, abandono=0.0 %]
+|   |   |   |   |   |   |   |   |   |   → No churn (n=58, abandono=0.0 %)
+|   |   |   |   |   |   |   |   Si gender = Male  [n=121, abandono=0.0 %]
+|   |   |   |   |   |   |   |   |   → No churn (n=121, abandono=0.0 %)
+|   |   |   |   |   |   Si tenure > 55.50  [n=53, abandono=5.7 %]
+|   |   |   |   |   |   |   Si Dependents ≠ Yes  [n=26, abandono=11.5 %]
+|   |   |   |   |   |   |   |   → No churn (n=26, abandono=11.5 %)
+|   |   |   |   |   |   |   Si Dependents = Yes  [n=27, abandono=0.0 %]
+|   |   |   |   |   |   |   |   → No churn (n=27, abandono=0.0 %)
+|   |   |   |   |   Si tenure > 59.50  [n=248, abandono=0.0 %]
+|   |   |   |   |   |   Si TechSupport ≠ No  [n=222, abandono=0.0 %]
+|   |   |   |   |   |   |   → No churn (n=222, abandono=0.0 %)
+|   |   |   |   |   |   Si TechSupport = No  [n=26, abandono=0.0 %]
+|   |   |   |   |   |   |   → No churn (n=26, abandono=0.0 %)
+|   |   |   |   Si MonthlyCharges > 70.05  [n=244, abandono=4.9 %]
+|   |   |   |   |   Si Contract ≠ One year  [n=174, abandono=1.7 %]
+|   |   |   |   |   |   Si SeniorCitizen ≠ 1  [n=153, abandono=0.7 %]
+|   |   |   |   |   |   |   Si MonthlyCharges ≤ 75.00  [n=21, abandono=4.8 %]
+|   |   |   |   |   |   |   |   → No churn (n=21, abandono=4.8 %)
+|   |   |   |   |   |   |   Si MonthlyCharges > 75.00  [n=132, abandono=0.0 %]
+|   |   |   |   |   |   |   |   → No churn (n=132, abandono=0.0 %)
+|   |   |   |   |   |   Si SeniorCitizen = 1  [n=21, abandono=9.5 %]
+|   |   |   |   |   |   |   → No churn (n=21, abandono=9.5 %)
+|   |   |   |   |   Si Contract = One year  [n=70, abandono=12.9 %]
+|   |   |   |   |   |   Si TotalCharges ≤ 3185.30  [n=25, abandono=24.0 %]
+|   |   |   |   |   |   |   → No churn (n=25, abandono=24.0 %)
+|   |   |   |   |   |   Si TotalCharges > 3185.30  [n=45, abandono=6.7 %]
+|   |   |   |   |   |   |   Si TotalCharges ≤ 4324.65  [n=21, abandono=0.0 %]
+|   |   |   |   |   |   |   |   → No churn (n=21, abandono=0.0 %)
+|   |   |   |   |   |   |   Si TotalCharges > 4324.65  [n=24, abandono=12.5 %]
+|   |   |   |   |   |   |   |   → No churn (n=24, abandono=12.5 %)
+|   |   |   Si PaymentMethod = Electronic check  [n=110, abandono=7.3 %]
+|   |   |   |   Si TechSupport ≠ No  [n=73, abandono=4.1 %]
+|   |   |   |   |   Si MultipleLines ≠ No  [n=39, abandono=7.7 %]
+|   |   |   |   |   |   → No churn (n=39, abandono=7.7 %)
+|   |   |   |   |   Si MultipleLines = No  [n=34, abandono=0.0 %]
+|   |   |   |   |   |   → No churn (n=34, abandono=0.0 %)
+|   |   |   |   Si TechSupport = No  [n=37, abandono=13.5 %]
+|   |   |   |   |   → No churn (n=37, abandono=13.5 %)
+|   |   Si OnlineSecurity = No  [n=304, abandono=9.5 %]
+|   |   |   Si tenure ≤ 48.50  [n=158, abandono=14.6 %]
+|   |   |   |   Si PaymentMethod ≠ Mailed check  [n=120, abandono=10.8 %]
+|   |   |   |   |   Si tenure ≤ 22.50  [n=29, abandono=20.7 %]
+|   |   |   |   |   |   → No churn (n=29, abandono=20.7 %)
+|   |   |   |   |   Si tenure > 22.50  [n=91, abandono=7.7 %]
+|   |   |   |   |   |   Si TotalCharges ≤ 2318.45  [n=39, abandono=0.0 %]
+|   |   |   |   |   |   |   → No churn (n=39, abandono=0.0 %)
+|   |   |   |   |   |   Si TotalCharges > 2318.45  [n=52, abandono=13.5 %]
+|   |   |   |   |   |   |   Si StreamingMovies ≠ No  [n=29, abandono=3.4 %]
+|   |   |   |   |   |   |   |   → No churn (n=29, abandono=3.4 %)
+|   |   |   |   |   |   |   Si StreamingMovies = No  [n=23, abandono=26.1 %]
+|   |   |   |   |   |   |   |   → No churn (n=23, abandono=26.1 %)
+|   |   |   |   Si PaymentMethod = Mailed check  [n=38, abandono=26.3 %]
+|   |   |   |   |   → No churn (n=38, abandono=26.3 %)
+|   |   |   Si tenure > 48.50  [n=146, abandono=4.1 %]
+|   |   |   |   Si PaymentMethod ≠ Electronic check  [n=117, abandono=1.7 %]
+|   |   |   |   |   Si TotalCharges ≤ 5264.68  [n=88, abandono=0.0 %]
+|   |   |   |   |   |   Si gender ≠ Male  [n=42, abandono=0.0 %]
+|   |   |   |   |   |   |   → No churn (n=42, abandono=0.0 %)
+|   |   |   |   |   |   Si gender = Male  [n=46, abandono=0.0 %]
+|   |   |   |   |   |   |   → No churn (n=46, abandono=0.0 %)
+|   |   |   |   |   Si TotalCharges > 5264.68  [n=29, abandono=6.9 %]
+|   |   |   |   |   |   → No churn (n=29, abandono=6.9 %)
+|   |   |   |   Si PaymentMethod = Electronic check  [n=29, abandono=13.8 %]
+|   |   |   |   |   → No churn (n=29, abandono=13.8 %)
+|   Si MonthlyCharges > 93.78  [n=457, abandono=14.2 %]
+|   |   Si TotalCharges ≤ 6623.50  [n=210, abandono=22.9 %]
+|   |   |   Si Contract ≠ Two year  [n=157, abandono=26.1 %]
+|   |   |   |   Si StreamingMovies ≠ Yes  [n=21, abandono=9.5 %]
+|   |   |   |   |   → No churn (n=21, abandono=9.5 %)
+|   |   |   |   Si StreamingMovies = Yes  [n=136, abandono=28.7 %]
+|   |   |   |   |   Si PaperlessBilling ≠ No  [n=102, abandono=32.4 %]
+|   |   |   |   |   |   Si MonthlyCharges ≤ 106.45  [n=79, abandono=36.7 %]
+|   |   |   |   |   |   |   Si TotalCharges ≤ 4988.70  [n=33, abandono=24.2 %]
+|   |   |   |   |   |   |   |   → No churn (n=33, abandono=24.2 %)
+|   |   |   |   |   |   |   Si TotalCharges > 4988.70  [n=46, abandono=45.7 %]
+|   |   |   |   |   |   |   |   Si MonthlyCharges ≤ 101.45  [n=24, abandono=37.5 %]
+|   |   |   |   |   |   |   |   |   → Churn (n=24, abandono=37.5 %)
+|   |   |   |   |   |   |   |   Si MonthlyCharges > 101.45  [n=22, abandono=54.5 %]
+|   |   |   |   |   |   |   |   |   → Churn (n=22, abandono=54.5 %)
+|   |   |   |   |   |   Si MonthlyCharges > 106.45  [n=23, abandono=17.4 %]
+|   |   |   |   |   |   |   → No churn (n=23, abandono=17.4 %)
+|   |   |   |   |   Si PaperlessBilling = No  [n=34, abandono=17.6 %]
+|   |   |   |   |   |   → No churn (n=34, abandono=17.6 %)
+|   |   |   Si Contract = Two year  [n=53, abandono=13.2 %]
+|   |   |   |   Si PaymentMethod ≠ Bank transfer (automatic)  [n=31, abandono=6.5 %]
+|   |   |   |   |   → No churn (n=31, abandono=6.5 %)
+|   |   |   |   Si PaymentMethod = Bank transfer (automatic)  [n=22, abandono=22.7 %]
+|   |   |   |   |   → No churn (n=22, abandono=22.7 %)
+|   |   Si TotalCharges > 6623.50  [n=247, abandono=6.9 %]
+|   |   |   Si gender ≠ Female  [n=126, abandono=10.3 %]
+|   |   |   |   Si TotalCharges ≤ 7822.00  [n=86, abandono=14.0 %]
+|   |   |   |   |   Si MonthlyCharges ≤ 103.33  [n=23, abandono=0.0 %]
+|   |   |   |   |   |   → No churn (n=23, abandono=0.0 %)
+|   |   |   |   |   Si MonthlyCharges > 103.33  [n=63, abandono=19.0 %]
+|   |   |   |   |   |   Si Dependents ≠ No  [n=22, abandono=9.1 %]
+|   |   |   |   |   |   |   → No churn (n=22, abandono=9.1 %)
+|   |   |   |   |   |   Si Dependents = No  [n=41, abandono=24.4 %]
+|   |   |   |   |   |   |   Si MonthlyCharges ≤ 106.18  [n=20, abandono=25.0 %]
+|   |   |   |   |   |   |   |   → No churn (n=20, abandono=25.0 %)
+|   |   |   |   |   |   |   Si MonthlyCharges > 106.18  [n=21, abandono=23.8 %]
+|   |   |   |   |   |   |   |   → No churn (n=21, abandono=23.8 %)
+|   |   |   |   Si TotalCharges > 7822.00  [n=40, abandono=2.5 %]
+|   |   |   |   |   Si TotalCharges ≤ 8027.98  [n=20, abandono=0.0 %]
+|   |   |   |   |   |   → No churn (n=20, abandono=0.0 %)
+|   |   |   |   |   Si TotalCharges > 8027.98  [n=20, abandono=5.0 %]
+|   |   |   |   |   |   → No churn (n=20, abandono=5.0 %)
+|   |   |   Si gender = Female  [n=121, abandono=3.3 %]
+|   |   |   |   Si PaymentMethod ≠ Electronic check  [n=91, abandono=1.1 %]
+|   |   |   |   |   Si MonthlyCharges ≤ 113.40  [n=69, abandono=0.0 %]
+|   |   |   |   |   |   → No churn (n=69, abandono=0.0 %)
+|   |   |   |   |   Si MonthlyCharges > 113.40  [n=22, abandono=4.5 %]
+|   |   |   |   |   |   → No churn (n=22, abandono=4.5 %)
+|   |   |   |   Si PaymentMethod = Electronic check  [n=30, abandono=10.0 %]
+|   |   |   |   |   → No churn (n=30, abandono=10.0 %)
+Si Contract = Month-to-month  [n=2326, abandono=43.1 %]
+|   Si InternetService ≠ Fiber optic  [n=1053, abandono=28.1 %]
+|   |   Si tenure ≤ 5.50  [n=448, abandono=40.8 %]
+|   |   |   Si TechSupport ≠ No  [n=225, abandono=28.9 %]
+|   |   |   |   Si TotalCharges ≤ 24.52  [n=92, abandono=40.2 %]
+|   |   |   |   |   Si MonthlyCharges ≤ 19.88  [n=37, abandono=27.0 %]
+|   |   |   |   |   |   → Churn (n=37, abandono=27.0 %)
+|   |   |   |   |   Si MonthlyCharges > 19.88  [n=55, abandono=49.1 %]
+|   |   |   |   |   |   Si gender ≠ Female  [n=31, abandono=38.7 %]
+|   |   |   |   |   |   |   → Churn (n=31, abandono=38.7 %)
+|   |   |   |   |   |   Si gender = Female  [n=24, abandono=62.5 %]
+|   |   |   |   |   |   |   → Churn (n=24, abandono=62.5 %)
+|   |   |   |   Si TotalCharges > 24.52  [n=133, abandono=21.1 %]
+|   |   |   |   |   Si MonthlyCharges ≤ 20.32  [n=55, abandono=9.1 %]
+|   |   |   |   |   |   Si MonthlyCharges ≤ 19.88  [n=28, abandono=17.9 %]
+|   |   |   |   |   |   |   → No churn (n=28, abandono=17.9 %)
+|   |   |   |   |   |   Si MonthlyCharges > 19.88  [n=27, abandono=0.0 %]
+|   |   |   |   |   |   |   → No churn (n=27, abandono=0.0 %)
+|   |   |   |   |   Si MonthlyCharges > 20.32  [n=78, abandono=29.5 %]
+|   |   |   |   |   |   Si StreamingMovies ≠ No  [n=32, abandono=21.9 %]
+|   |   |   |   |   |   |   → No churn (n=32, abandono=21.9 %)
+|   |   |   |   |   |   Si StreamingMovies = No  [n=46, abandono=34.8 %]
+|   |   |   |   |   |   |   Si MonthlyCharges ≤ 54.27  [n=25, abandono=44.0 %]
+|   |   |   |   |   |   |   |   → Churn (n=25, abandono=44.0 %)
+|   |   |   |   |   |   |   Si MonthlyCharges > 54.27  [n=21, abandono=23.8 %]
+|   |   |   |   |   |   |   |   → No churn (n=21, abandono=23.8 %)
+|   |   |   Si TechSupport = No  [n=223, abandono=52.9 %]
+|   |   |   |   Si TotalCharges ≤ 201.62  [n=200, abandono=56.0 %]
+|   |   |   |   |   Si SeniorCitizen ≠ 0  [n=23, abandono=82.6 %]
+|   |   |   |   |   |   → Churn (n=23, abandono=82.6 %)
+|   |   |   |   |   Si SeniorCitizen = 0  [n=177, abandono=52.5 %]
+|   |   |   |   |   |   Si gender ≠ Female  [n=97, abandono=61.9 %]
+|   |   |   |   |   |   |   Si PhoneService ≠ Yes  [n=23, abandono=82.6 %]
+|   |   |   |   |   |   |   |   → Churn (n=23, abandono=82.6 %)
+|   |   |   |   |   |   |   Si PhoneService = Yes  [n=74, abandono=55.4 %]
+|   |   |   |   |   |   |   |   Si MonthlyCharges ≤ 45.27  [n=21, abandono=42.9 %]
+|   |   |   |   |   |   |   |   |   → Churn (n=21, abandono=42.9 %)
+|   |   |   |   |   |   |   |   Si MonthlyCharges > 45.27  [n=53, abandono=60.4 %]
+|   |   |   |   |   |   |   |   |   Si MonthlyCharges ≤ 49.73  [n=23, abandono=78.3 %]
+|   |   |   |   |   |   |   |   |   |   → Churn (n=23, abandono=78.3 %)
+|   |   |   |   |   |   |   |   |   Si MonthlyCharges > 49.73  [n=30, abandono=46.7 %]
+|   |   |   |   |   |   |   |   |   |   → Churn (n=30, abandono=46.7 %)
+|   |   |   |   |   |   Si gender = Female  [n=80, abandono=41.2 %]
+|   |   |   |   |   |   |   Si PaperlessBilling ≠ Yes  [n=34, abandono=29.4 %]
+|   |   |   |   |   |   |   |   → Churn (n=34, abandono=29.4 %)
+|   |   |   |   |   |   |   Si PaperlessBilling = Yes  [n=46, abandono=50.0 %]
+|   |   |   |   |   |   |   |   Si TotalCharges ≤ 63.00  [n=25, abandono=60.0 %]
+|   |   |   |   |   |   |   |   |   → Churn (n=25, abandono=60.0 %)
+|   |   |   |   |   |   |   |   Si TotalCharges > 63.00  [n=21, abandono=38.1 %]
+|   |   |   |   |   |   |   |   |   → Churn (n=21, abandono=38.1 %)
+|   |   |   |   Si TotalCharges > 201.62  [n=23, abandono=26.1 %]
+|   |   |   |   |   → No churn (n=23, abandono=26.1 %)
+|   |   Si tenure > 5.50  [n=605, abandono=18.7 %]
+|   |   |   Si PhoneService ≠ No  [n=455, abandono=14.5 %]
+|   |   |   |   Si OnlineBackup ≠ No  [n=264, abandono=10.2 %]
+|   |   |   |   |   Si OnlineSecurity ≠ Yes  [n=213, abandono=8.5 %]
+|   |   |   |   |   |   Si MonthlyCharges ≤ 20.07  [n=70, abandono=12.9 %]
+|   |   |   |   |   |   |   Si MonthlyCharges ≤ 19.62  [n=37, abandono=8.1 %]
+|   |   |   |   |   |   |   |   → No churn (n=37, abandono=8.1 %)
+|   |   |   |   |   |   |   Si MonthlyCharges > 19.62  [n=33, abandono=18.2 %]
+|   |   |   |   |   |   |   |   → No churn (n=33, abandono=18.2 %)
+|   |   |   |   |   |   Si MonthlyCharges > 20.07  [n=143, abandono=6.3 %]
+|   |   |   |   |   |   |   Si MonthlyCharges ≤ 22.18  [n=58, abandono=1.7 %]
+|   |   |   |   |   |   |   |   Si MonthlyCharges ≤ 20.38  [n=23, abandono=4.3 %]
+|   |   |   |   |   |   |   |   |   → No churn (n=23, abandono=4.3 %)
+|   |   |   |   |   |   |   |   Si MonthlyCharges > 20.38  [n=35, abandono=0.0 %]
+|   |   |   |   |   |   |   |   |   → No churn (n=35, abandono=0.0 %)
+|   |   |   |   |   |   |   Si MonthlyCharges > 22.18  [n=85, abandono=9.4 %]
+|   |   |   |   |   |   |   |   Si TotalCharges ≤ 488.72  [n=20, abandono=20.0 %]
+|   |   |   |   |   |   |   |   |   → No churn (n=20, abandono=20.0 %)
+|   |   |   |   |   |   |   |   Si TotalCharges > 488.72  [n=65, abandono=6.2 %]
+|   |   |   |   |   |   |   |   |   Si DeviceProtection ≠ No  [n=24, abandono=0.0 %]
+|   |   |   |   |   |   |   |   |   |   → No churn (n=24, abandono=0.0 %)
+|   |   |   |   |   |   |   |   |   Si DeviceProtection = No  [n=41, abandono=9.8 %]
+|   |   |   |   |   |   |   |   |   |   Si TotalCharges ≤ 1414.60  [n=21, abandono=4.8 %]
+|   |   |   |   |   |   |   |   |   |   |   → No churn (n=21, abandono=4.8 %)
+|   |   |   |   |   |   |   |   |   |   Si TotalCharges > 1414.60  [n=20, abandono=15.0 %]
+|   |   |   |   |   |   |   |   |   |   |   → No churn (n=20, abandono=15.0 %)
+|   |   |   |   |   Si OnlineSecurity = Yes  [n=51, abandono=17.6 %]
+|   |   |   |   |   |   Si MonthlyCharges ≤ 65.80  [n=24, abandono=29.2 %]
+|   |   |   |   |   |   |   → Churn (n=24, abandono=29.2 %)
+|   |   |   |   |   |   Si MonthlyCharges > 65.80  [n=27, abandono=7.4 %]
+|   |   |   |   |   |   |   → No churn (n=27, abandono=7.4 %)
+|   |   |   |   Si OnlineBackup = No  [n=191, abandono=20.4 %]
+|   |   |   |   |   Si TotalCharges ≤ 1242.70  [n=130, abandono=26.9 %]
+|   |   |   |   |   |   Si Partner ≠ Yes  [n=90, abandono=33.3 %]
+|   |   |   |   |   |   |   Si PaymentMethod ≠ Mailed check  [n=57, abandono=40.4 %]
+|   |   |   |   |   |   |   |   Si MonthlyCharges ≤ 55.47  [n=31, abandono=54.8 %]
+|   |   |   |   |   |   |   |   |   → Churn (n=31, abandono=54.8 %)
+|   |   |   |   |   |   |   |   Si MonthlyCharges > 55.47  [n=26, abandono=23.1 %]
+|   |   |   |   |   |   |   |   |   → No churn (n=26, abandono=23.1 %)
+|   |   |   |   |   |   |   Si PaymentMethod = Mailed check  [n=33, abandono=21.2 %]
+|   |   |   |   |   |   |   |   → No churn (n=33, abandono=21.2 %)
+|   |   |   |   |   |   Si Partner = Yes  [n=40, abandono=12.5 %]
+|   |   |   |   |   |   |   Si TotalCharges ≤ 597.80  [n=20, abandono=10.0 %]
+|   |   |   |   |   |   |   |   → No churn (n=20, abandono=10.0 %)
+|   |   |   |   |   |   |   Si TotalCharges > 597.80  [n=20, abandono=15.0 %]
+|   |   |   |   |   |   |   |   → No churn (n=20, abandono=15.0 %)
+|   |   |   |   |   Si TotalCharges > 1242.70  [n=61, abandono=6.6 %]
+|   |   |   |   |   |   Si TotalCharges ≤ 1699.05  [n=25, abandono=0.0 %]
+|   |   |   |   |   |   |   → No churn (n=25, abandono=0.0 %)
+|   |   |   |   |   |   Si TotalCharges > 1699.05  [n=36, abandono=11.1 %]
+|   |   |   |   |   |   |   → No churn (n=36, abandono=11.1 %)
+|   |   |   Si PhoneService = No  [n=150, abandono=31.3 %]
+|   |   |   |   Si PaymentMethod ≠ Electronic check  [n=84, abandono=21.4 %]
+|   |   |   |   |   Si PaperlessBilling ≠ No  [n=50, abandono=12.0 %]
+|   |   |   |   |   |   Si tenure ≤ 25.50  [n=26, abandono=19.2 %]
+|   |   |   |   |   |   |   → No churn (n=26, abandono=19.2 %)
+|   |   |   |   |   |   Si tenure > 25.50  [n=24, abandono=4.2 %]
+|   |   |   |   |   |   |   → No churn (n=24, abandono=4.2 %)
+|   |   |   |   |   Si PaperlessBilling = No  [n=34, abandono=35.3 %]
+|   |   |   |   |   |   → Churn (n=34, abandono=35.3 %)
+|   |   |   |   Si PaymentMethod = Electronic check  [n=66, abandono=43.9 %]
+|   |   |   |   |   Si TotalCharges ≤ 891.27  [n=31, abandono=67.7 %]
+|   |   |   |   |   |   → Churn (n=31, abandono=67.7 %)
+|   |   |   |   |   Si TotalCharges > 891.27  [n=35, abandono=22.9 %]
+|   |   |   |   |   |   → No churn (n=35, abandono=22.9 %)
+|   Si InternetService = Fiber optic  [n=1273, abandono=55.5 %]
+|   |   Si tenure ≤ 15.50  [n=633, abandono=69.4 %]
+|   |   |   Si TotalCharges ≤ 120.00  [n=154, abandono=85.1 %]
+|   |   |   |   Si TotalCharges ≤ 75.65  [n=86, abandono=79.1 %]
+|   |   |   |   |   Si MonthlyCharges ≤ 69.92  [n=23, abandono=100.0 %]
+|   |   |   |   |   |   → Churn (n=23, abandono=100.0 %)
+|   |   |   |   |   Si MonthlyCharges > 69.92  [n=63, abandono=71.4 %]
+|   |   |   |   |   |   Si MonthlyCharges ≤ 70.62  [n=21, abandono=66.7 %]
+|   |   |   |   |   |   |   → Churn (n=21, abandono=66.7 %)
+|   |   |   |   |   |   Si MonthlyCharges > 70.62  [n=42, abandono=73.8 %]
+|   |   |   |   |   |   |   Si MonthlyCharges ≤ 74.38  [n=22, abandono=72.7 %]
+|   |   |   |   |   |   |   |   → Churn (n=22, abandono=72.7 %)
+|   |   |   |   |   |   |   Si MonthlyCharges > 74.38  [n=20, abandono=75.0 %]
+|   |   |   |   |   |   |   |   → Churn (n=20, abandono=75.0 %)
+|   |   |   |   Si TotalCharges > 75.65  [n=68, abandono=92.6 %]
+|   |   |   |   |   Si MonthlyCharges ≤ 89.20  [n=45, abandono=97.8 %]
+|   |   |   |   |   |   Si MonthlyCharges ≤ 80.40  [n=25, abandono=100.0 %]
+|   |   |   |   |   |   |   → Churn (n=25, abandono=100.0 %)
+|   |   |   |   |   |   Si MonthlyCharges > 80.40  [n=20, abandono=95.0 %]
+|   |   |   |   |   |   |   → Churn (n=20, abandono=95.0 %)
+|   |   |   |   |   Si MonthlyCharges > 89.20  [n=23, abandono=82.6 %]
+|   |   |   |   |   |   → Churn (n=23, abandono=82.6 %)
+|   |   |   Si TotalCharges > 120.00  [n=479, abandono=64.3 %]
+|   |   |   |   Si MonthlyCharges ≤ 73.40  [n=65, abandono=38.5 %]
+|   |   |   |   |   Si gender ≠ Female  [n=36, abandono=30.6 %]
+|   |   |   |   |   |   → Churn (n=36, abandono=30.6 %)
+|   |   |   |   |   Si gender = Female  [n=29, abandono=48.3 %]
+|   |   |   |   |   |   → Churn (n=29, abandono=48.3 %)
+|   |   |   |   Si MonthlyCharges > 73.40  [n=414, abandono=68.4 %]
+|   |   |   |   |   Si OnlineSecurity ≠ Yes  [n=367, abandono=71.7 %]
+|   |   |   |   |   |   Si MultipleLines ≠ No  [n=199, abandono=77.9 %]
+|   |   |   |   |   |   |   Si PaperlessBilling ≠ No  [n=166, abandono=81.9 %]
+|   |   |   |   |   |   |   |   Si tenure ≤ 7.50  [n=77, abandono=90.9 %]
+|   |   |   |   |   |   |   |   |   Si MonthlyCharges ≤ 82.95  [n=30, abandono=83.3 %]
+|   |   |   |   |   |   |   |   |   |   → Churn (n=30, abandono=83.3 %)
+|   |   |   |   |   |   |   |   |   Si MonthlyCharges > 82.95  [n=47, abandono=95.7 %]
+|   |   |   |   |   |   |   |   |   |   Si MonthlyCharges ≤ 89.55  [n=21, abandono=100.0 %]
+|   |   |   |   |   |   |   |   |   |   |   → Churn (n=21, abandono=100.0 %)
+|   |   |   |   |   |   |   |   |   |   Si MonthlyCharges > 89.55  [n=26, abandono=92.3 %]
+|   |   |   |   |   |   |   |   |   |   |   → Churn (n=26, abandono=92.3 %)
+|   |   |   |   |   |   |   |   Si tenure > 7.50  [n=89, abandono=74.2 %]
+|   |   |   |   |   |   |   |   |   Si MonthlyCharges ≤ 80.40  [n=22, abandono=59.1 %]
+|   |   |   |   |   |   |   |   |   |   → Churn (n=22, abandono=59.1 %)
+|   |   |   |   |   |   |   |   |   Si MonthlyCharges > 80.40  [n=67, abandono=79.1 %]
+|   |   |   |   |   |   |   |   |   |   Si SeniorCitizen ≠ 1  [n=45, abandono=71.1 %]
+|   |   |   |   |   |   |   |   |   |   |   Si tenure ≤ 11.50  [n=22, abandono=81.8 %]
+|   |   |   |   |   |   |   |   |   |   |   |   → Churn (n=22, abandono=81.8 %)
+|   |   |   |   |   |   |   |   |   |   |   Si tenure > 11.50  [n=23, abandono=60.9 %]
+|   |   |   |   |   |   |   |   |   |   |   |   → Churn (n=23, abandono=60.9 %)
+|   |   |   |   |   |   |   |   |   |   Si SeniorCitizen = 1  [n=22, abandono=95.5 %]
+|   |   |   |   |   |   |   |   |   |   |   → Churn (n=22, abandono=95.5 %)
+|   |   |   |   |   |   |   Si PaperlessBilling = No  [n=33, abandono=57.6 %]
+|   |   |   |   |   |   |   |   → Churn (n=33, abandono=57.6 %)
+|   |   |   |   |   |   Si MultipleLines = No  [n=168, abandono=64.3 %]
+|   |   |   |   |   |   |   Si MonthlyCharges ≤ 78.92  [n=30, abandono=43.3 %]
+|   |   |   |   |   |   |   |   → Churn (n=30, abandono=43.3 %)
+|   |   |   |   |   |   |   Si MonthlyCharges > 78.92  [n=138, abandono=68.8 %]
+|   |   |   |   |   |   |   |   Si TotalCharges ≤ 755.60  [n=83, abandono=77.1 %]
+|   |   |   |   |   |   |   |   |   Si MonthlyCharges ≤ 80.33  [n=20, abandono=95.0 %]
+|   |   |   |   |   |   |   |   |   |   → Churn (n=20, abandono=95.0 %)
+|   |   |   |   |   |   |   |   |   Si MonthlyCharges > 80.33  [n=63, abandono=71.4 %]
+|   |   |   |   |   |   |   |   |   |   Si TotalCharges ≤ 436.07  [n=38, abandono=63.2 %]
+|   |   |   |   |   |   |   |   |   |   |   → Churn (n=38, abandono=63.2 %)
+|   |   |   |   |   |   |   |   |   |   Si TotalCharges > 436.07  [n=25, abandono=84.0 %]
+|   |   |   |   |   |   |   |   |   |   |   → Churn (n=25, abandono=84.0 %)
+|   |   |   |   |   |   |   |   Si TotalCharges > 755.60  [n=55, abandono=56.4 %]
+|   |   |   |   |   |   |   |   |   Si TotalCharges ≤ 1023.55  [n=31, abandono=45.2 %]
+|   |   |   |   |   |   |   |   |   |   → Churn (n=31, abandono=45.2 %)
+|   |   |   |   |   |   |   |   |   Si TotalCharges > 1023.55  [n=24, abandono=70.8 %]
+|   |   |   |   |   |   |   |   |   |   → Churn (n=24, abandono=70.8 %)
+|   |   |   |   |   Si OnlineSecurity = Yes  [n=47, abandono=42.6 %]
+|   |   |   |   |   |   Si gender ≠ Female  [n=20, abandono=20.0 %]
+|   |   |   |   |   |   |   → No churn (n=20, abandono=20.0 %)
+|   |   |   |   |   |   Si gender = Female  [n=27, abandono=59.3 %]
+|   |   |   |   |   |   |   → Churn (n=27, abandono=59.3 %)
+|   |   Si tenure > 15.50  [n=640, abandono=41.7 %]
+|   |   |   Si StreamingTV ≠ No  [n=365, abandono=47.9 %]
+|   |   |   |   Si tenure ≤ 28.50  [n=120, abandono=62.5 %]
+|   |   |   |   |   Si MonthlyCharges ≤ 88.90  [n=21, abandono=38.1 %]
+|   |   |   |   |   |   → Churn (n=21, abandono=38.1 %)
+|   |   |   |   |   Si MonthlyCharges > 88.90  [n=99, abandono=67.7 %]
+|   |   |   |   |   |   Si MonthlyCharges ≤ 98.72  [n=56, abandono=58.9 %]
+|   |   |   |   |   |   |   Si PaymentMethod ≠ Electronic check  [n=24, abandono=45.8 %]
+|   |   |   |   |   |   |   |   → Churn (n=24, abandono=45.8 %)
+|   |   |   |   |   |   |   Si PaymentMethod = Electronic check  [n=32, abandono=68.8 %]
+|   |   |   |   |   |   |   |   → Churn (n=32, abandono=68.8 %)
+|   |   |   |   |   |   Si MonthlyCharges > 98.72  [n=43, abandono=79.1 %]
+|   |   |   |   |   |   |   Si OnlineBackup ≠ No  [n=21, abandono=61.9 %]
+|   |   |   |   |   |   |   |   → Churn (n=21, abandono=61.9 %)
+|   |   |   |   |   |   |   Si OnlineBackup = No  [n=22, abandono=95.5 %]
+|   |   |   |   |   |   |   |   → Churn (n=22, abandono=95.5 %)
+|   |   |   |   Si tenure > 28.50  [n=245, abandono=40.8 %]
+|   |   |   |   |   Si MultipleLines ≠ No  [n=201, abandono=45.3 %]
+|   |   |   |   |   |   Si OnlineSecurity ≠ Yes  [n=148, abandono=52.7 %]
+|   |   |   |   |   |   |   Si StreamingMovies ≠ No  [n=112, abandono=58.0 %]
+|   |   |   |   |   |   |   |   Si MonthlyCharges ≤ 99.60  [n=35, abandono=77.1 %]
+|   |   |   |   |   |   |   |   |   → Churn (n=35, abandono=77.1 %)
+|   |   |   |   |   |   |   |   Si MonthlyCharges > 99.60  [n=77, abandono=49.4 %]
+|   |   |   |   |   |   |   |   |   Si TotalCharges ≤ 4196.62  [n=26, abandono=30.8 %]
+|   |   |   |   |   |   |   |   |   |   → Churn (n=26, abandono=30.8 %)
+|   |   |   |   |   |   |   |   |   Si TotalCharges > 4196.62  [n=51, abandono=58.8 %]
+|   |   |   |   |   |   |   |   |   |   Si gender ≠ Male  [n=23, abandono=43.5 %]
+|   |   |   |   |   |   |   |   |   |   |   → Churn (n=23, abandono=43.5 %)
+|   |   |   |   |   |   |   |   |   |   Si gender = Male  [n=28, abandono=71.4 %]
+|   |   |   |   |   |   |   |   |   |   |   → Churn (n=28, abandono=71.4 %)
+|   |   |   |   |   |   |   Si StreamingMovies = No  [n=36, abandono=36.1 %]
+|   |   |   |   |   |   |   |   → Churn (n=36, abandono=36.1 %)
+|   |   |   |   |   |   Si OnlineSecurity = Yes  [n=53, abandono=24.5 %]
+|   |   |   |   |   |   |   Si DeviceProtection ≠ Yes  [n=28, abandono=14.3 %]
+|   |   |   |   |   |   |   |   → No churn (n=28, abandono=14.3 %)
+|   |   |   |   |   |   |   Si DeviceProtection = Yes  [n=25, abandono=36.0 %]
+|   |   |   |   |   |   |   |   → Churn (n=25, abandono=36.0 %)
+|   |   |   |   |   Si MultipleLines = No  [n=44, abandono=20.5 %]
+|   |   |   |   |   |   Si tenure ≤ 41.50  [n=23, abandono=13.0 %]
+|   |   |   |   |   |   |   → No churn (n=23, abandono=13.0 %)
+|   |   |   |   |   |   Si tenure > 41.50  [n=21, abandono=28.6 %]
+|   |   |   |   |   |   |   → Churn (n=21, abandono=28.6 %)
+|   |   |   Si StreamingTV = No  [n=275, abandono=33.5 %]
+|   |   |   |   Si tenure ≤ 58.50  [n=249, abandono=36.1 %]
+|   |   |   |   |   Si TotalCharges ≤ 1375.03  [n=25, abandono=16.0 %]
+|   |   |   |   |   |   → No churn (n=25, abandono=16.0 %)
+|   |   |   |   |   Si TotalCharges > 1375.03  [n=224, abandono=38.4 %]
+|   |   |   |   |   |   Si MonthlyCharges ≤ 85.55  [n=151, abandono=43.7 %]
+|   |   |   |   |   |   |   Si MonthlyCharges ≤ 83.18  [n=116, abandono=38.8 %]
+|   |   |   |   |   |   |   |   Si MonthlyCharges ≤ 80.42  [n=94, abandono=43.6 %]
+|   |   |   |   |   |   |   |   |   Si PaymentMethod ≠ Electronic check  [n=56, abandono=35.7 %]
+|   |   |   |   |   |   |   |   |   |   Si tenure ≤ 35.50  [n=35, abandono=45.7 %]
+|   |   |   |   |   |   |   |   |   |   |   → Churn (n=35, abandono=45.7 %)
+|   |   |   |   |   |   |   |   |   |   Si tenure > 35.50  [n=21, abandono=19.0 %]
+|   |   |   |   |   |   |   |   |   |   |   → No churn (n=21, abandono=19.0 %)
+|   |   |   |   |   |   |   |   |   Si PaymentMethod = Electronic check  [n=38, abandono=55.3 %]
+|   |   |   |   |   |   |   |   |   |   → Churn (n=38, abandono=55.3 %)
+|   |   |   |   |   |   |   |   Si MonthlyCharges > 80.42  [n=22, abandono=18.2 %]
+|   |   |   |   |   |   |   |   |   → No churn (n=22, abandono=18.2 %)
+|   |   |   |   |   |   |   Si MonthlyCharges > 83.18  [n=35, abandono=60.0 %]
+|   |   |   |   |   |   |   |   → Churn (n=35, abandono=60.0 %)
+|   |   |   |   |   |   Si MonthlyCharges > 85.55  [n=73, abandono=27.4 %]
+|   |   |   |   |   |   |   Si TechSupport ≠ No  [n=25, abandono=8.0 %]
+|   |   |   |   |   |   |   |   → No churn (n=25, abandono=8.0 %)
+|   |   |   |   |   |   |   Si TechSupport = No  [n=48, abandono=37.5 %]
+|   |   |   |   |   |   |   |   Si TotalCharges ≤ 2962.65  [n=23, abandono=56.5 %]
+|   |   |   |   |   |   |   |   |   → Churn (n=23, abandono=56.5 %)
+|   |   |   |   |   |   |   |   Si TotalCharges > 2962.65  [n=25, abandono=20.0 %]
+|   |   |   |   |   |   |   |   |   → No churn (n=25, abandono=20.0 %)
+|   |   |   |   Si tenure > 58.50  [n=26, abandono=7.7 %]
+|   |   |   |   |   → No churn (n=26, abandono=7.7 %)

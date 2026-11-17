@@ -1,0 +1,9 @@
+﻿Clase real,Situación,Clientes,Proporción
+Clientes que abandonaron (Churn=1),Ambos modelos: detecta,249,0.6657754010695187
+Clientes que abandonaron (Churn=1),Solo Regresión logística: detecta,43,0.11497326203208556
+Clientes que abandonaron (Churn=1),Solo Árbol de decisión: detecta,21,0.05614973262032086
+Clientes que abandonaron (Churn=1),Ninguno: detecta,61,0.16310160427807488
+Clientes que se quedaron (Churn=0),Ambos modelos: da falsa alarma,193,0.18647342995169083
+Clientes que se quedaron (Churn=0),Solo Regresión logística: da falsa alarma,87,0.08405797101449275
+Clientes que se quedaron (Churn=0),Solo Árbol de decisión: da falsa alarma,64,0.06183574879227053
+Clientes que se quedaron (Churn=0),Ninguno: da falsa alarma,691,0.6676328502415458

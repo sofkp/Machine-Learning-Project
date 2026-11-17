@@ -1,0 +1,33 @@
+{
+  "modelo": "Regresión logística",
+  "configuracion": 14,
+  "hiperparametros": {
+    "penalizacion": "l2",
+    "class_weight": "balanced",
+    "C": 0.1
+  },
+  "criterio": "Mayor F1-score de Churn=1 en Validation (protocolo de P02)",
+  "configuraciones_evaluadas": 36,
+  "configuraciones_empatadas": 1,
+  "intercepto": -0.9641303376277417,
+  "metricas_train": {
+    "Accuracy": 0.7550295857988165,
+    "Precision": 0.52479815455594,
+    "Recall": 0.8117752007136485,
+    "F1-score": 0.637478108581436,
+    "ROC-AUC": 0.8524803539733485
+  },
+  "metricas_validation": {
+    "Accuracy": 0.7480482611781405,
+    "Precision": 0.5165794066317626,
+    "Recall": 0.7914438502673797,
+    "F1-score": 0.6251319957761352,
+    "ROC-AUC": 0.8359593376217417
+  },
+  "versiones": {
+    "python": "3.12.13",
+    "numpy": "2.4.6",
+    "pandas": "2.2.3",
+    "scikit-learn": "1.6.1"
+  }
+}

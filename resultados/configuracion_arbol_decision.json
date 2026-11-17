@@ -1,0 +1,34 @@
+{
+  "modelo": "Árbol de decisión",
+  "configuracion": 41,
+  "hiperparametros": {
+    "class_weight": "balanced",
+    "max_depth": null,
+    "min_samples_leaf": 20
+  },
+  "criterio": "Mayor F1-score de Churn=1 en Validation (protocolo de P02)",
+  "configuraciones_evaluadas": 42,
+  "configuraciones_empatadas": 1,
+  "profundidad_real": 12,
+  "hojas": 132,
+  "metricas_train": {
+    "Accuracy": 0.8016568047337278,
+    "Precision": 0.5918234912394549,
+    "Recall": 0.8135593220338984,
+    "F1-score": 0.6851990984222389,
+    "ROC-AUC": 0.8962811359059013
+  },
+  "metricas_validation": {
+    "Accuracy": 0.7572746628814763,
+    "Precision": 0.5305343511450382,
+    "Recall": 0.7433155080213903,
+    "F1-score": 0.6191536748329621,
+    "ROC-AUC": 0.8191157095249166
+  },
+  "versiones": {
+    "python": "3.12.13",
+    "numpy": "2.4.6",
+    "pandas": "2.2.3",
+    "scikit-learn": "1.6.1"
+  }
+}

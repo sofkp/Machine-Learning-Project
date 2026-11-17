@@ -1,0 +1,2 @@
+﻿Modelo,Conjunto,Accuracy,Precision,Recall,F1-score,ROC-AUC
+Dummy Classifier,Validation,0.7345635202271115,0.0,0.0,0.0,0.5

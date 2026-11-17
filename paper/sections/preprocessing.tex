@@ -1,2 +1,81 @@
 % SOLO P2
-% \section{Preprocesamiento e ingeniería de características}
+% Texto de Marcia Arce (secciones 4.1 a 4.4 del documento compartido del grupo),
+% pasado a LaTeX sin cambios de contenido: solo se adaptaron el formato de los
+% decimales (punto, como en el resto del informe), las citas y los nombres de
+% variables con \var{}.
+% Sugerencia para la autora: en el último párrafo de la subsección D podría decir
+% "a los conjuntos de validación y prueba", porque en P05 el mismo preprocesador
+% ajustado con entrenamiento también transforma el conjunto de prueba.
+\section{Preprocesamiento e ingeniería de características}
+\label{sec:prepro}
+
+\subsection{Tratamiento de valores faltantes}
+La variable \var{TotalCharges}, originalmente almacenada como texto, se convirtió a formato numérico
+mediante \var{pd.to\_numeric(errors=\textquotedbl{}coerce\textquotedbl{})}, identificándose 11 valores faltantes, equivalentes al
+0.16\% de las observaciones. Se verificó que todos estos registros correspondían a clientes con una
+antigüedad (\var{tenure}) de cero meses.
+
+Para su tratamiento, se utilizó \var{SimpleImputer} con una estrategia de imputación constante de cero,
+aplicada exclusivamente a \var{TotalCharges}~\cite{simpleimputer}. Esta decisión se fundamentó en el
+supuesto de que los clientes sin meses completos de antigüedad podrían no haber acumulado cargos. Se
+consideró más coherente con el significado de la variable que sustituir los valores faltantes por la
+mediana del conjunto de entrenamiento (1385.30), lo que habría introducido cargos acumulados
+considerables en estos registros. Sin embargo, la imputación adoptada constituye una hipótesis
+metodológica, dado que los valores reales ausentes no pueden verificarse.
+
+Las demás características numéricas y categóricas no presentaron valores faltantes, por lo que no se
+aplicaron procedimientos adicionales de imputación.
+
+\subsection{Codificación y escalamiento de características}
+Las 16 características categóricas, incluida \var{SeniorCitizen}, se transformaron mediante
+\emph{One-Hot Encoding}. Este procedimiento representa cada categoría mediante indicadores binarios,
+evitando introducir relaciones ordinales artificiales entre categorías nominales~\cite{onehot}. Se
+configuró \var{handle\_unknown=\textquotedbl{}ignore\textquotedbl{}} para permitir la transformación de categorías no identificadas
+durante el ajuste.
+
+Como resultado, las 19 características predictoras originales quedaron representadas mediante 46
+columnas numéricas: tres correspondientes a variables cuantitativas y 43 generadas mediante
+codificación categórica. Este incremento corresponde a un cambio en la representación de los datos y
+no a la incorporación de información adicional sobre los clientes.
+
+Para la regresión logística se incorporó \var{StandardScaler} sobre las tres características numéricas.
+Esta técnica estandariza las variables utilizando la media y desviación estándar del conjunto de
+entrenamiento, reduciendo las diferencias de escala que pueden afectar la optimización y la
+regularización de modelos lineales~\cite{standardscaler}. En contraste, para el árbol de decisión se
+conservaron las escalas originales, dado que sus particiones se basan en umbrales de las
+características y no requieren estandarización.
+
+\subsection{Análisis y decisiones de ingeniería de características}
+Se examinó la posible redundancia entre las características cuantitativas mediante correlaciones de
+Pearson calculadas exclusivamente sobre el conjunto de entrenamiento, aplicando previamente la
+imputación de cero definida para \var{TotalCharges}.
+
+Se obtuvieron correlaciones de 0.834 entre \var{tenure} y \var{TotalCharges}, y de 0.650 entre
+\var{MonthlyCharges} y \var{TotalCharges}. Asimismo, la correlación entre \var{TotalCharges} y el
+producto \var{tenure} $\times$ \var{MonthlyCharges} fue de 0.9996, evidenciando una asociación lineal
+muy elevada entre estas cantidades, aunque no una equivalencia exacta.
+
+Estos resultados sugieren una posible redundancia informativa. Sin embargo, la correlación entre
+predictores no permite determinar por sí sola si alguna característica carece de utilidad para la
+clasificación. La selección de características debe considerar su contribución al desempeño del
+modelo y los riesgos asociados al sobreajuste~\cite{kuhn}.
+
+Por ello, se decidió conservar inicialmente las 19 características originales, sin aplicar
+eliminación de predictores basada únicamente en correlaciones. La ingeniería realizada se centró en
+transformar su representación mediante codificación y escalamiento, sin incorporar nuevas
+características derivadas. La conveniencia de eventuales modificaciones deberá determinarse mediante
+validación experimental.
+
+\subsection{Implementación del preprocesamiento}
+Las transformaciones se organizaron mediante \var{Pipeline} y \var{ColumnTransformer} de scikit-learn,
+implementándose la función \var{make\_preprocessor()} para construir dos preprocesadores reutilizables,
+correspondientes a regresión logística y árbol de decisión. Ambos comparten la imputación constante
+de cero para \var{TotalCharges} y la codificación categórica, diferenciándose en la aplicación de
+\var{StandardScaler} únicamente para la regresión logística.
+
+Para prevenir la fuga de información (\emph{data leakage}), las transformaciones que requieren
+aprender parámetros de los datos, como la identificación de categorías y el cálculo de estadísticas
+de estandarización, se ajustaron exclusivamente sobre el conjunto de entrenamiento. Posteriormente,
+las transformaciones aprendidas se aplicaron al conjunto de validación sin reajustarlas, siguiendo
+las recomendaciones de scikit-learn para evitar la incorporación de información externa al
+entrenamiento~\cite{leakage}.

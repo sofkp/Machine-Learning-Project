@@ -1,2 +1,64 @@
 % SOLO P2.
-% \section{Discusión y limitaciones}
+% PROPUESTA de Alessandra para la sección 8, escrita a partir de los resultados de P03-P05.
+% Esta sección está asignada a Farid, Sebastian y Sofia: pueden usarla como base,
+% recortarla o reemplazarla. Todas las cifras salen de resultados/.
+\section{Discusión y limitaciones}
+\label{sec:discusion}
+
+\subsection{Interpretación de los resultados}
+Los dos modelos identifican a la mayoría de los clientes que abandonan y lo hacen apoyándose en las
+mismas variables. La regresión logística supera al árbol en \emph{Recall} y ROC-AUC y no se distingue
+de él en las demás métricas. Hay tres razones que lo explican.
+
+La primera es que la señal de estos datos es, en buena medida, aditiva y monótona. El EDA ya mostraba
+que las diferencias por contrato se mantienen dentro de cada grupo de antigüedad, y un modelo lineal
+en los \emph{log-odds} capta ese tipo de efecto con pocos parámetros, cada uno estimado con los 4225
+clientes de entrenamiento. La segunda es que el árbol reparte los datos: cada hoja estima su tasa con
+pocos clientes, a veces solo 20. Por eso produce apenas unos 100 valores distintos de probabilidad en
+prueba, frente a 1407 de la regresión logística; ordena a los clientes de forma más gruesa y tiene
+una brecha mayor entre entrenamiento y validación (0.066 frente a 0.012). La tercera es que las
+interacciones, que son la ventaja teórica del árbol, aportan poco aquí. Sí le permiten detectar 11 de
+los 25 abandonos entre clientes sin internet, donde la regresión logística no detecta ninguno, pero
+son pocos casos.
+
+Aun así, la diferencia entre modelos es modesta y en F1 no es concluyente. Lo que parece limitar el
+desempeño no es el algoritmo sino la información disponible: los 61 abandonos que ningún modelo
+detecta tienen el perfil de un cliente estable, y faltan variables que podrían distinguirlos, como
+reclamos, calidad del servicio u ofertas de la competencia.
+
+La ponderación de clases fue la decisión con mayor efecto. Permite detectar cerca de tres de cada
+cuatro abandonos, pero a cambio la regresión logística señala al 40.6\% de los clientes de prueba
+(572 alertas) y la mitad son falsas alarmas. Si ese intercambio conviene depende del costo de una
+acción de retención frente al de perder un cliente, que aquí no se conoce.
+
+\subsection{Limitaciones}
+\textbf{Del conjunto de datos.} Es una muestra de ejemplo de una empresa ficticia~\cite{ibm} y no
+tiene fechas. No se sabe cuándo se registró cada variable respecto del abandono, no es posible una
+validación temporal y los resultados no se pueden generalizar a un operador real ni al mercado
+peruano.
+
+\textbf{De la metodología.} Se usó una sola partición y validación \emph{hold-out}. Con 1409
+clientes en validación, diferencias de 0.002 a 0.01 de F1 entre configuraciones están dentro del
+ruido, de modo que la configuración elegida podría cambiar con otra semilla; una validación cruzada
+daría una selección más estable. El umbral se fijó en 0.5 sin un análisis de costos. Solo se
+compararon dos familias de modelos, sin variables derivadas ni ensambles.
+
+\textbf{De los resultados.} Los intervalos son amplios (cerca de $\pm$0.04 en F1) y varios subgrupos
+tienen muy pocos abandonos (9 con contrato de dos años, 25 sin internet), por lo que sus tasas son
+imprecisas. Las razones de \emph{odds} y las reglas del árbol describen asociaciones en datos
+observacionales: no demuestran que cambiar el contrato de un cliente reduzca su probabilidad de
+abandono. Además, las probabilidades no están calibradas.
+
+\subsection{Sesgos, ética y generalización}
+El género prácticamente no influye en las predicciones ni en los errores. La variable
+\var{SeniorCitizen} sí merece atención: los adultos mayores que permanecen reciben una alerta casi el
+doble de veces que el resto (0.476 frente a 0.243 en la regresión logística). El efecto directo de la
+variable es pequeño (OR = 1.18). La diferencia proviene sobre todo de que, en el conjunto completo,
+estos clientes tienen con más frecuencia contrato mensual (70.7\% frente a 52.0\%) y fibra óptica
+(72.8\% frente a 38.4\%), por lo que quitar la variable probablemente no la eliminaría.
+
+Que esto sea un problema depende del uso. Si la alerta activa un descuento, el grupo señalado se
+beneficia y los perjudicados son los clientes con contratos largos, a quienes los modelos casi nunca
+señalan. Si activa un trato menos favorable, el perjuicio recae en los adultos mayores. Antes de
+cualquier uso real habría que validar los modelos con datos del operador, separados en el tiempo, y
+monitorear los errores por grupo.

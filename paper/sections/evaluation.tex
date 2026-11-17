@@ -1,3 +1,59 @@
 % SOLO P2.
-% \section{Diseño experimental y evaluación}
+% BORRADOR redactado por Alessandra a partir del protocolo de P02 (Marcia Arce) para que
+% el informe compile completo. Describe lo que hacen P02 y src/protocolo.py; Marcia puede
+% reemplazarlo o ajustarlo con su propia redacción.
+\section{Diseño experimental y evaluación}
+\label{sec:diseno}
 
+\subsection{Particiones}
+Los 7043 clientes se dividieron una sola vez, de forma estratificada por \var{Churn} y con semilla 42,
+en entrenamiento (60\%, 4225 clientes), validación (20\%, 1409) y prueba (20\%, 1409). La
+estratificación mantiene la proporción de abandono de 26.5\% en los tres conjuntos (1121, 374 y 374
+abandonos). Cada conjunto cumple un único papel: con entrenamiento se ajustan los preprocesadores y
+los modelos; con validación se comparan las configuraciones y se elige una por modelo; prueba se
+reserva para una sola evaluación final de los tres modelos ya elegidos.
+
+\subsection{Búsqueda de hiperparámetros}
+Se recorrieron de forma exhaustiva las grillas de la Tabla~\ref{tab:grilla}. Cada configuración se
+ajustó con entrenamiento y se evaluó en validación. Se usó una validación fija (\emph{hold-out}) en
+lugar de validación cruzada de $k$ pliegues. Esta decisión simplifica la coordinación entre los
+integrantes y permite reproducir exactamente las mismas particiones, aunque hace que los resultados
+dependan de la partición elegida (Sección~\ref{sec:discusion}).
+
+El criterio de selección, fijado antes de entrenar, fue el mayor F1-score de \var{Churn=1} en
+validación. Ante un empate se prefiere la configuración más simple: menor $C$ en la regresión
+logística; menor profundidad y, luego, hojas más grandes en el árbol. Los modelos finales conservan
+el ajuste hecho solo con entrenamiento, de modo que lo que se evalúa en prueba es exactamente lo que
+se seleccionó.
+
+\subsection{Métricas}
+La clase positiva es \var{Churn=1} y la etiqueta se asigna con el umbral 0.5 sobre la probabilidad
+estimada. A partir de los verdaderos positivos (VP), falsos positivos (FP), falsos negativos (FN) y
+verdaderos negativos (VN) de la matriz de confusión se reportan:
+\begin{itemize}
+    \item \emph{Accuracy}: proporción total de aciertos.
+    \item \emph{Precision}, $\mathrm{VP}/(\mathrm{VP}+\mathrm{FP})$: de los clientes que el modelo
+    señala, cuántos abandonan.
+    \item \emph{Recall}, $\mathrm{VP}/(\mathrm{VP}+\mathrm{FN})$: de los clientes que abandonan,
+    cuántos señala el modelo.
+    \item F1-score: media armónica de \emph{Precision} y \emph{Recall}.
+    \item ROC-AUC: probabilidad de que un cliente que abandona reciba una probabilidad estimada mayor
+    que uno que permanece. No depende del umbral.
+\end{itemize}
+
+La exactitud por sí sola es engañosa con clases desbalanceadas: el clasificador de referencia alcanza
+0.735 sin detectar a nadie. Además, en retención los dos errores no cuestan lo mismo. Un falso
+negativo es un cliente que se pierde sin haber sido contactado; un falso positivo es una oferta de
+retención innecesaria. Como esos costos no se conocen, se usó F1 como criterio de selección porque
+exige un equilibrio entre ambos errores.
+
+\subsection{Incertidumbre e importancia de variables}
+Con 374 abandonos en prueba, las métricas tienen un error de muestreo apreciable. Se estimó con
+\emph{bootstrap}~\cite{bootstrap}: 2000 remuestreos con reemplazo de los clientes de prueba e
+intervalos percentil del 95\%. Para comparar dos modelos, la diferencia se calcula en cada remuestreo
+sobre los mismos clientes (bootstrap pareado) y se considera distinguible solo si su intervalo
+excluye el cero.
+
+Para comparar qué variables usa cada modelo en una misma escala se calculó la importancia por
+permutación~\cite{rf}: se desordena una de las 19 variables originales en validación y se mide cuánto
+cae el F1-score, en promedio sobre 30 repeticiones.

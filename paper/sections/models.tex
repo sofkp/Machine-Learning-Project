@@ -1,2 +1,91 @@
 % SOLO P2
-% \section{Metodología y modelos}
+\section{Metodología y modelos}
+\label{sec:modelos}
+
+Se comparan tres clasificadores sobre las mismas 19 características y las mismas particiones: un
+clasificador de referencia, una regresión logística y un árbol de decisión. Los tres se implementan
+con scikit-learn~\cite{sklearn} como un \var{Pipeline} que une el preprocesador de la
+Sección~\ref{sec:prepro} con el estimador. Así, en cada ajuste la codificación y el escalamiento se
+aprenden únicamente con los datos de entrenamiento.
+
+\subsection{Clasificador de referencia}
+Se usó \var{DummyClassifier} con la estrategia \var{most\_frequent}, que predice siempre la clase
+mayoritaria (\var{Churn=0}) sin usar ninguna característica. Fija el piso de la comparación: su exactitud es igual
+a la proporción de clientes que permanecen, pero no detecta ningún abandono. Un modelo solo aporta si
+mejora las métricas de la clase positiva respecto de esta referencia.
+
+\subsection{Regresión logística}
+La regresión logística modela el logaritmo de los \emph{odds} de abandono como una combinación lineal
+de las características~\cite{esl}:
+\begin{equation}
+    \log\frac{p(\mathbf{x})}{1-p(\mathbf{x})}=\beta_0+\sum_{j=1}^{d}\beta_j x_j ,
+\end{equation}
+donde $p(\mathbf{x})$ es la probabilidad estimada de \var{Churn=1} y $d=46$ es el número de columnas
+tras la codificación. Los coeficientes se obtienen al minimizar la pérdida logarítmica $\ell$,
+ponderada por clase, más un término de regularización:
+\begin{equation}
+    \min_{\beta_0,\boldsymbol{\beta}}\; C\sum_{i=1}^{n} w_{y_i}\,\ell\bigl(y_i,p(\mathbf{x}_i)\bigr)+R(\boldsymbol{\beta}),
+    \label{eq:logistica}
+\end{equation}
+con $R(\boldsymbol{\beta})=\tfrac{1}{2}\lVert\boldsymbol{\beta}\rVert_2^2$ para la penalización L2 y
+$R(\boldsymbol{\beta})=\lVert\boldsymbol{\beta}\rVert_1$ para L1.
+
+Se eligió como primer modelo por tres razones: es el modelo lineal habitual para clasificación binaria
+con datos tabulares, entrega probabilidades además de etiquetas y cada coeficiente se interpreta como
+un cambio en los \emph{odds}, lo que permite contrastar el modelo con lo observado en el EDA.
+
+El hiperparámetro $C$ es el inverso de la fuerza de regularización: cuanto menor es, más se encogen
+los coeficientes hacia cero. La penalización L2 los reduce todos de forma gradual, mientras que L1
+puede anular algunos por completo y funciona como una selección de variables. Esto último es
+relevante aquí porque la codificación genera columnas redundantes; por ejemplo, las siete columnas
+que indican ausencia de internet son idénticas. Se usó el optimizador \var{lbfgs} para L2 y
+\var{saga} para L1, con un máximo de 20\,000 iteraciones; las 36 configuraciones convergieron.
+
+\subsection{Árbol de decisión}
+El árbol de decisión CART~\cite{cart} divide de forma recursiva a los clientes con preguntas binarias
+sobre una sola característica. En cada nodo elige la división que más reduce la impureza de Gini,
+\begin{equation}
+    G=1-\sum_{k\in\{0,1\}}p_k^2 ,
+\end{equation}
+donde $p_k$ es la proporción ponderada de la clase $k$ en el nodo. Cada hoja predice la clase con
+mayor peso entre sus clientes de entrenamiento.
+
+Se eligió como segundo modelo porque parte de un supuesto distinto al lineal: no asume que los efectos
+se suman, puede captar interacciones como las que el EDA mostró entre contrato, antigüedad y tipo de
+internet, no requiere escalamiento y se expresa como reglas. Su riesgo principal es el sobreajuste:
+sin restricciones, el árbol sigue dividiendo hasta aislar a casi todos los clientes de
+entrenamiento. Por ello se exploraron dos controles: \var{max\_depth}, que limita cuántas preguntas
+consecutivas puede hacer, y \var{min\_samples\_leaf}, que exige un mínimo de clientes en cada hoja e
+impide reglas apoyadas en muy pocos casos. Se fijó \var{random\_state=42} para que los empates entre
+divisiones se resuelvan siempre igual.
+
+\subsection{Tratamiento del desbalance}
+Solo el 26.5\% de los clientes abandona. Para que la clase minoritaria no quede relegada se evaluó la opción
+\var{class\_weight=\textquotedbl{}balanced\textquotedbl{}}, que asigna a cada clase el peso $w_k=n/(2n_k)$: 1.884 para
+\var{Churn=1} y 0.681 para \var{Churn=0} en entrenamiento. Con estos pesos ambas clases aportan lo
+mismo a la pérdida de~\eqref{eq:logistica} o a la impureza del árbol, lo que equivale a que un error
+sobre un cliente que abandona cueste 2.77 veces más que un error sobre uno que permanece. Es una
+forma de aprendizaje sensible al costo~\cite{imbalance} que no elimina ni crea observaciones. De
+acuerdo con el protocolo común del grupo, no se aplicó remuestreo (por ejemplo, SMOTE). La
+Tabla~\ref{tab:grilla} resume los valores explorados.
+
+\begin{table}[t]
+    \caption{Hiperparámetros explorados. En negrita, la configuración seleccionada en validación}
+    \label{tab:grilla}
+    \centering\footnotesize
+    \begin{tabularx}{\columnwidth}{@{}l>{\raggedright\arraybackslash}X@{}}
+        \toprule
+        Hiperparámetro & Valores \\
+        \midrule
+        \multicolumn{2}{@{}l}{\emph{Regresión logística (36 configuraciones)}} \\
+        $C$ & 0.001, 0.003, 0.01, 0.03, \textbf{0.1}, 0.3, 1, 3, 10 \\
+        Penalización & \textbf{L2}, L1 \\
+        \var{class\_weight} & ninguno, \textbf{balanced} \\
+        \midrule
+        \multicolumn{2}{@{}l}{\emph{Árbol de decisión (42 configuraciones)}} \\
+        \var{max\_depth} & 2, 3, 4, 5, 6, 8, \textbf{sin límite} \\
+        \var{min\_samples\_leaf} & 1, \textbf{20}, 50 \\
+        \var{class\_weight} & ninguno, \textbf{balanced} \\
+        \bottomrule
+    \end{tabularx}
+\end{table}

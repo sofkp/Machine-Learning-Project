@@ -1,2 +1,48 @@
 % SOLO P2.
-% \section{Conclusiones}
+% PROPUESTA de Alessandra para la sección 9 (asignada a Farid, Sebastian y Sofia): responde
+% las seis preguntas de investigación del documento compartido con las cifras de resultados/.
+\section{Conclusiones}
+\label{sec:conclusiones}
+
+Respuestas a las preguntas de investigación:
+
+\begin{enumerate}
+    \item \emph{Características con diferencias de abandono.} El contrato, la antigüedad, el tipo de
+    internet, el método de pago y los servicios de seguridad y soporte muestran las mayores
+    diferencias en el EDA. Los modelos lo confirman: \var{Contract}, \var{tenure} e
+    \var{InternetService} son las tres variables más importantes en ambos.
+
+    \item \emph{Contrato y antigüedad.} La diferencia por contrato se mantiene al comparar clientes
+    de antigüedad similar. En la regresión logística, con las demás variables fijas, un contrato de
+    dos años multiplica los \emph{odds} de abandono por 0.24 frente al mensual.
+
+    \item \emph{Internet y servicios adicionales.} La fibra óptica se asocia con más abandono dentro
+    de cada contrato (OR de DSL frente a fibra: 0.50), y contar con \var{OnlineSecurity} o
+    \var{TechSupport}, con menos (OR de 0.66 y 0.69).
+
+    \item \emph{Calidad, representatividad y fuga de información.} Los 11 faltantes de
+    \var{TotalCharges} se imputaron con cero, se excluyó el identificador, los preprocesadores se
+    ajustaron solo con entrenamiento y el conjunto de prueba se usó una sola vez. La
+    representatividad sigue siendo la principal limitación, por tratarse de una muestra ficticia.
+
+    \item \emph{Capacidad para identificar abandonos.} El clasificador de referencia no detecta
+    ninguno de los 374 abandonos de prueba. La regresión logística detecta 292 (\emph{Recall} 0.781,
+    F1 0.617, ROC-AUC 0.841) y el árbol, 270 (0.722, 0.599 y 0.818), con una \emph{Precision} cercana
+    a 0.51. La exactitud casi no cambia respecto de la referencia (0.74 frente a 0.735), lo que
+    confirma que no es la métrica adecuada para este problema.
+
+    \item \emph{Desempeño e interpretabilidad.} La regresión logística supera al árbol en
+    \emph{Recall} y ROC-AUC; en F1 la diferencia no es concluyente. Se interpreta con razones de
+    \emph{odds} que valen para todos los clientes. El árbol se expresa en reglas, pero el
+    seleccionado tiene 132 hojas y solo se leen sus primeros niveles; uno de 8 hojas rinde casi igual.
+\end{enumerate}
+
+Como aprendizaje, el tratamiento del desbalance influyó más que la fuerza de la regularización;
+cuantificar la incertidumbre evitó presentar como ventajas diferencias que están dentro del ruido; y
+fijar el protocolo antes de entrenar hizo que los resultados de todos los integrantes fueran
+comparables.
+
+Como trabajo futuro se propone seleccionar los hiperparámetros con validación cruzada, elegir el
+umbral a partir de los costos de retención, calibrar las probabilidades, evaluar interacciones y
+modelos de ensamble como \emph{random forest} o \emph{gradient boosting}, y validar con datos reales
+separados en el tiempo, incluida una revisión de los errores por grupo.

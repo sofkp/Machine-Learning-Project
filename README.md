@@ -172,8 +172,3 @@ Los resultados de regresión logística, árbol de decisión y evaluación final
 - [Telco Customer Churn — Kaggle](https://www.kaggle.com/datasets/blastchar/telco-customer-churn)
 - [Documentación de scikit-learn](https://scikit-learn.org/stable/)
 - Guía del proyecto e informes disponibles en las carpetas `docs/` y `paper/`.
-
-
-- [Telco Customer Churn — Kaggle](https://www.kaggle.com/datasets/blastchar/telco-customer-churn)
-- [Documentación de scikit-learn](https://scikit-learn.org/stable/)
-- Guía del proyecto e informes disponibles en las carpetas `docs/` y `paper/`.

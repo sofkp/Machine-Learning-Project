@@ -50,7 +50,7 @@ Machine-Learning-Project/
 ├── .gitignore
 ├── data/
 │   └── WA_Fn-UseC_-Telco-Customer-Churn.csv
-├── docs/                     # Guía del proyecto y discusión de resultados (P06)
+├── docs/                     # Guía actualizada del proyecto y discusión de resultados (P06)
 ├── notebooks/
 │   ├── 01_eda_telco_churn.ipynb
 │   ├── P01Pre_procesamiento_actualizado.ipynb
@@ -66,15 +66,16 @@ Machine-Learning-Project/
 │   └── graficos.py           # Figuras
 ├── resultados/               # Tablas generadas por los notebooks (CSV, JSON y TXT)
 │   └── figuras/              # Figuras generadas por P03, P04, P05 y P06
-├── slides/                   # Guion y plantilla Beamer para la presentación final
-└── paper/                    # Informe académico en LaTeX (P1 y P2)
+└── paper/                    # Informe académico en LaTeX y PDFs (P1 y P2)
     ├── main.tex
+    ├── Grupo10_informe_P1.pdf
+    ├── Grupo10_informe_P2.pdf
     ├── sections/
     ├── figures/
     └── generar_figuras.py    # Figuras de P2 al tamaño del formato IEEE
 ```
 
-Los notebooks P03, P04 y P05 contienen la **regresión logística**, el **árbol de decisión** y la **evaluación comparativa**. Los tres importan `preprocessing.py` y el código de `src/`, de modo que usan las mismas particiones, métricas y criterios definidos en P02. Sus tablas se guardan en `resultados/` y sus figuras en `resultados/figuras/`. La carpeta `docs/` reúne la guía del proyecto y la discusión de resultados (`P06_discusion_limitaciones_conclusiones.md`); `paper/` contiene el informe académico.
+Los notebooks P03, P04 y P05 contienen la **regresión logística**, el **árbol de decisión** y la **evaluación comparativa**. Los tres importan `preprocessing.py` y el código de `src/`, de modo que usan las mismas particiones, métricas y criterios definidos en P02. Sus tablas se guardan en `resultados/` y sus figuras en `resultados/figuras/`. El notebook `P06_discusion_conclusiones.ipynb` sintetiza esos resultados, analiza los errores compartidos y los sesgos por subgrupo, y verifica la trazabilidad de todos los artefactos. La carpeta `docs/` reúne la guía del proyecto (`guia_proyecto_actualizado.md`) y la base documental de discusión (`P06_discusion_limitaciones_conclusiones.md`); `paper/` contiene el informe académico en LaTeX y los PDFs compilados (`Grupo10_informe_P1.pdf` y `Grupo10_informe_P2.pdf`).
 
 ## Requisitos del entorno
 
@@ -108,7 +109,7 @@ El preprocesamiento utiliza `OneHotEncoder(sparse_output=False)`, por lo que req
 
 - `P01Pre_procesamiento_actualizado.ipynb` descarga el CSV público directamente desde GitHub para revisar las transformaciones y sus verificaciones.
 - `P02_baseline_diseno_experimental.ipynb` busca `preprocessing.py` en el entorno. Si está abierto en Colab y no encuentra el módulo, intenta clonar automáticamente este repositorio en `/content/Machine-Learning-Project/`. Por tanto, es necesario que el repositorio sea público y que `preprocessing.py` esté en su raíz.
-- `P03_regresion_logistica.ipynb`, `P04_arbol_decision.ipynb` y `P05_evaluacion_comparativa.ipynb` localizan el repositorio con la misma lógica que P02 y, en Colab, lo clonan si no lo encuentran, porque necesitan `preprocessing.py` y la carpeta `src/`. P05 lee las configuraciones elegidas en `resultados/configuracion_*.json`: usa las del repositorio, salvo que P03 y P04 se hayan ejecutado antes en la misma sesión.
+- `P03_regresion_logistica.ipynb`, `P04_arbol_decision.ipynb`, `P05_evaluacion_comparativa.ipynb` y `P06_discusion_conclusiones.ipynb` localizan el repositorio con la misma lógica que P02 y, en Colab, lo clonan si no lo encuentran, porque necesitan `preprocessing.py` y la carpeta `src/`. P05 lee las configuraciones elegidas en `resultados/configuracion_*.json`: usa las del repositorio, salvo que P03 y P04 se hayan ejecutado antes en la misma sesión. P06 no vuelve a entrenar ni seleccionar hiperparámetros: lee las tablas de `resultados/` y el CSV de `data/`.
 
 **Importante:** los archivos generados en la sesión de Colab son temporales. Si se generan nuevos resultados, deben descargarse o incorporarse explícitamente al repositorio; ejecutarlos en Colab no actualiza GitHub de forma automática.
 
@@ -234,7 +235,7 @@ Archivos generados en `resultados/`:
 - Análisis de errores: `errores_por_subgrupo_test.csv`, `coincidencia_errores_test.csv` y `perfil_errores_test.csv`.
 - Figuras: `figuras/p03_*.png`, `figuras/p04_*.png`, `figuras/p05_*.png` y `figuras/p06_*.png`.
 
-La interpretación completa, las limitaciones y las conclusiones están en `docs/P06_discusion_limitaciones_conclusiones.md` y en el informe (`paper/`).
+La interpretación completa, las limitaciones y las conclusiones están en `notebooks/P06_discusion_conclusiones.ipynb`, en `docs/P06_discusion_limitaciones_conclusiones.md` y en el informe final (`paper/Grupo10_informe_P2.pdf`).
 
 ## Limitaciones y alcance
 
@@ -249,4 +250,4 @@ La interpretación completa, las limitaciones y las conclusiones están en `docs
 ## Referencias y documentación
 - [Telco Customer Churn — Kaggle](https://www.kaggle.com/datasets/blastchar/telco-customer-churn)
 - [Documentación de scikit-learn](https://scikit-learn.org/stable/)
-- Guía del proyecto e informes disponibles en las carpetas `docs/` y `paper/`.
+- Guía del proyecto (`docs/guia_proyecto_actualizado.md`) e informes (`paper/Grupo10_informe_P1.pdf` y `paper/Grupo10_informe_P2.pdf`).

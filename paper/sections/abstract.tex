@@ -4,17 +4,16 @@
     detección como una tarea de clasificación supervisada binaria sobre \emph{Telco Customer Churn},
     un conjunto público de ejemplo de IBM con 7043 clientes, 19 variables predictoras y una tasa de
     abandono del 26.54\%. Tras el análisis exploratorio y la revisión de calidad de datos, se
-    implementó un flujo reproducible libre de fuga de información con partición estratificada
+    implementó un protocolo reproducible con partición estratificada
     (60\% entrenamiento, 20\% validación y 20\% prueba), imputación de \var{TotalCharges} con cero y
     codificación \emph{one-hot}. Se comparó un clasificador de referencia (\emph{Dummy}) frente a
     una regresión logística (L2, $C=0.1$) y un árbol de decisión (\var{min\_samples\_leaf=20}),
     ambos con ponderación de clases (\var{balanced}). En el conjunto de prueba, la regresión
     logística alcanza \emph{Recall} de 0.781, F1-score de 0.617 y ROC-AUC de 0.841, superando al
     árbol en \emph{Recall} (0.722) y ROC-AUC (0.818), aunque sin diferencia concluyente en F1 según
-    intervalos \emph{bootstrap} del 95\%. Ambos modelos coinciden en que el contrato, la antigüedad y
-    el tipo de internet concentran el mayor poder predictivo y comparten un límite informativo en los
-    abandonos de perfil estable. Se discuten limitaciones de representatividad, calibración y equidad
-    por subgrupo.
+    intervalos \emph{bootstrap} del 95\%. Ambos modelos identifican el contrato, la antigüedad
+    y el tipo de internet como características predictivas relevantes, aunque comparten dificultades para
+    clasificar abandonos en perfiles similares a los clientes que permanecen.
 \end{abstract}
 
 \begin{IEEEkeywords}

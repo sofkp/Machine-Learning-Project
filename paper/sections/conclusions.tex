@@ -1,13 +1,15 @@
 % SOLO P2.
 \section{Conclusiones}
 \label{sec:conclusiones}
-
-En este trabajo se evaluó la identificación del abandono de clientes en Telco Customer Churn mediante
-un protocolo reproducible libre de fugas de información, comparando un clasificador de referencia con
-regresión logística y árbol de decisión. Ambos modelos superaron ampliamente al \emph{baseline} en la
-detección de abandonos (\emph{Recall} de 0.781 y 0.722 frente a 0.000), destacando la regresión
-logística por su mejor ordenamiento global y menor brecha entre entrenamiento y validación, aunque el
-conjunto de datos impone un techo informativo compartido en los casos de perfil estable.
+En este trabajo se evaluó la clasificación del abandono registrado de clientes en Telco Customer Churn
+mediante un protocolo reproducible que separa entrenamiento, validación y prueba y evita ajustar
+los modelos con información de los conjuntos reservados. Se comparó un clasificador de referencia
+con regresión logística y árbol de decisión. Ambos modelos superaron ampliamente al \emph{baseline} en la
+detección de abandonos (\emph{Recall} de 0.781 y 0.722 frente a 0.000).
+La regresión logística presentó mayor ROC-AUC y una menor brecha entre entrenamiento
+y validación, aunque la diferencia de F1 frente al árbol no fue concluyente. Los errores
+compartidos revelan dificultades para clasificar abandonos en clientes con perfiles similares
+a quienes permanecen.
 
 Respecto a las preguntas de investigación planteadas, se concluye lo siguiente:
 
@@ -28,10 +30,10 @@ Respecto a las preguntas de investigación planteadas, se concluye lo siguiente:
     (OR de 0.66 y 0.69).
 
     \item \emph{Calidad, representatividad y fuga de información.} Los 11 faltantes de
-    \var{TotalCharges} se imputaron con cero, se excluyó \var{customerID}, los preprocesadores se
-    ajustaron solo con entrenamiento y el conjunto de prueba se usó una sola vez. La
-    representatividad sigue siendo la limitación principal por tratarse de una muestra ficticia y sin
-    marcas temporales.
+    \var{TotalCharges} se imputaron con cero y se excluyó \var{customerID}.
+    El ajuste de preprocesadores y modelos se limitó a entrenamiento,
+    mientras que los hiperparámetros se seleccionaron en validación y prueba se reservó para la evaluación final.
+    Sin embargo, la falta de información temporal impide descartar una fuga de origen.
 
     \item \emph{Capacidad para identificar abandonos.} El clasificador de referencia no detecta
     ninguno de los 374 abandonos de prueba. La regresión logística detecta 292 (\emph{Recall} 0.781,
@@ -52,9 +54,7 @@ ventajas diferencias de F1 que están dentro del ruido muestral; restringir el t
 evitó la memorización del árbol (0.996 en entrenamiento frente a 0.496 en validación sin podar); y
 fijar el protocolo antes de modelar garantizó resultados comparables en todo el equipo.
 
-Como trabajo futuro se propone: (1) seleccionar hiperparámetros con validación cruzada estratificada
-para reducir la dependencia de una partición única; (2) optimizar el umbral de decisión a partir de
-costos reales de retención y pérdida; (3) calibrar las probabilidades estimadas mediante regresión
-isotónica o escalamiento de Platt; (4) evaluar variables derivadas, interacciones y modelos de
-ensamble como \emph{random forest} o \emph{gradient boosting}; y (5) validar con datos temporales de
-un operador real monitoreando los errores por grupo sensible.
+Como trabajo futuro, se propone incorporar validación cruzada estratificada, optimizar el
+umbral según costos de retención, calibrar las probabilidades y evaluar nuevos predictores y
+modelos de ensamble. También sería necesario validar temporalmente el sistema con datos
+de un operador real y monitorear sus errores por subgrupo.

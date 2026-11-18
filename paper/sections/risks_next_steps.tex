@@ -1,35 +1,37 @@
+
 \subsection{Posibles sesgos y fuga de información}
 
-La documentación presenta los datos como un ejemplo de una empresa ficticia~\cite{ibm}. No se conoce 
-cómo se seleccionaron los clientes, por lo que no puede afirmarse que la muestra represente al mercado 
-peruano. Además, algunos perfiles tienen menor presencia: \var{SeniorCitizen=1} reúne 1142 clientes, 
-frente a 5901 en la otra categoría. Por estas diferencias de tamaño y de abandono, será útil revisar 
-los errores del modelo por grupo. Sin embargo, estas diferencias por sí solas no demuestran discriminación.
+La documentación presenta los datos como un ejemplo de una empresa ficticia~\cite{ibm}. Se desconoce el procedimiento de
+muestreo, por lo que no puede afirmarse que representen al mercado peruano. Algunos grupos también tienen menor
+presencia: \var{SeniorCitizen=1} reúne 1142 clientes frente a 5901 en la otra categoría. Por ello, los errores de los
+modelos se analizan posteriormente por subgrupo, sin asumir que estas diferencias constituyan discriminación.
 
-También existe una limitación temporal. Los clientes de mayor antigüedad son quienes permanecieron 
-el tiempo suficiente para alcanzar ese grupo. Compararlos con clientes recientes no permite saber qué 
-pasaría con una misma persona si permaneciera más tiempo. Además, no se cuenta con las fechas en que 
-se registró cada variable, por lo que falta comprobar si esa información estaba disponible antes del 
-abandono.
+También existen limitaciones temporales. Los clientes con mayor antigüedad son aquellos que permanecieron el tiempo
+suficiente para alcanzarla, lo que introduce un posible sesgo de supervivencia. Además, se desconocen las fechas de
+registro de las características. Por tanto, no es posible verificar que todas estuvieran disponibles antes del
+abandono, ni descartar una posible fuga temporal de origen.
 
-La fuga de información ocurre cuando el entrenamiento utiliza información que no estaría disponible al 
-predecir~\cite{leakage}. Se excluirán de las entradas \var{Churn} y su copia numérica \var{abandono}, 
-pues ambas representan el objetivo. \var{customerID} también se excluirá, ya que identifica a cada 
-cliente y no describe sus características. Las correlaciones entre cargos y antigüedad pueden indicar 
-información redundante, pero no son por sí solas una fuga de información.
+La fuga de información ocurre cuando el desarrollo de un modelo utiliza información que no estaría disponible al
+momento de predecir~\cite{leakage}. En el protocolo de P2 se excluyeron \var{Churn}, su copia numérica
+\var{abandono} y \var{customerID} de las características predictoras. Los preprocesadores se ajustaron únicamente
+con entrenamiento y los hiperparámetros se seleccionaron mediante validación, reservando prueba para la evaluación final.
 
+\subsection{Síntesis del EDA}
 
-\subsection{Síntesis del EDA y siguientes pasos}
+El EDA identificó asociaciones entre el abandono y el contrato, la antigüedad, el tipo de internet,
+el método de pago y ciertos servicios adicionales. Las comparaciones conjuntas permitieron profundizar
+en estos patrones, aunque no establecen relaciones causales. Estos hallazgos orientan la interpretación
+de los modelos evaluados en las siguientes secciones.
 
-El EDA identifica diferencias por contrato, antigüedad, internet, método de pago y ciertos complementos. 
-Las comparaciones conjuntas muestran que algunas diferencias permanecen al separar por contrato o 
-antigüedad. No establecen causas ni determinan todavía qué variables aportarán más a un modelo.
+% El EDA identifica diferencias por contrato, antigüedad, internet, método de pago y ciertos complementos. 
+% Las comparaciones conjuntas muestran que algunas diferencias permanecen al separar por contrato o 
+% antigüedad. No establecen causas ni determinan todavía qué variables aportarán más a un modelo.
 
-Para P2 se propone definir el momento de predicción y separar los datos de entrenamiento y prueba 
-manteniendo la proporción de clases. La imputación y la codificación se ajustarán únicamente con 
-los datos de entrenamiento. Se conservará inicialmente la antigüedad original, omitiendo el 
-grupo creado solo para visualizar. Se comparará un modelo que siempre prediga la clase mayoritaria 
-con al menos dos modelos supervisados, por ejemplo regresión logística y un árbol de decisión. 
-Sus parámetros se elegirán con los datos de validación, sin utilizar los de prueba. 
-Se reportarán matriz de confusión, precisión y recall, junto con una métrica para evaluar 
-qué tan bien el modelo asigna mayor riesgo a quienes abandonan. 
+% Para P2 se propone definir el momento de predicción y separar los datos de entrenamiento y prueba 
+% manteniendo la proporción de clases. La imputación y la codificación se ajustarán únicamente con 
+% los datos de entrenamiento. Se conservará inicialmente la antigüedad original, omitiendo el 
+% grupo creado solo para visualizar. Se comparará un modelo que siempre prediga la clase mayoritaria 
+% con al menos dos modelos supervisados, por ejemplo regresión logística y un árbol de decisión. 
+% Sus parámetros se elegirán con los datos de validación, sin utilizar los de prueba. 
+% Se reportarán matriz de confusión, precisión y recall, junto con una métrica para evaluar 
+% qué tan bien el modelo asigna mayor riesgo a quienes abandonan. 

@@ -62,11 +62,12 @@ divisiones se resuelvan siempre igual.
 \subsection{Tratamiento del desbalance}
 Solo el 26.5\% de los clientes abandona. Para que la clase minoritaria no quede relegada se evaluó la opción
 \var{class\_weight=\textquotedbl{}balanced\textquotedbl{}}, que asigna a cada clase el peso $w_k=n/(2n_k)$: 1.884 para
-\var{Churn=1} y 0.681 para \var{Churn=0} en entrenamiento. Con estos pesos ambas clases aportan lo
-mismo a la pérdida de~\eqref{eq:logistica} o a la impureza del árbol, lo que equivale a que un error
-sobre un cliente que abandona cueste 2.77 veces más que un error sobre uno que permanece. Es una
-forma de aprendizaje sensible al costo~\cite{imbalance} que no elimina ni crea observaciones. De
-acuerdo con el protocolo común del grupo, no se aplicó remuestreo (por ejemplo, SMOTE). La
+\var{Churn=1} y 0.681 para \var{Churn=0} en entrenamiento. 
+Con estos pesos, ambas clases tienen una contribución total equivalente a la función objetivo del entrenamiento. Cada
+observación de \var{Churn=1} recibe un peso aproximadamente 2.77 veces mayor que una de \var{Churn=0}, tanto en la pérdida
+logarítmica como en el cálculo de impureza del árbol. Esta ponderación busca compensar el desbalance, pero no representa
+directamente los costos empresariales de los falsos negativos y falsos positivos~\cite{imbalance}. El procedimiento no elimina
+ni crea observaciones. De acuerdo con el protocolo común del grupo, no se aplicó remuestreo (por ejemplo, SMOTE). La
 Tabla~\ref{tab:grilla} resume los valores explorados.
 
 \begin{table}[t]

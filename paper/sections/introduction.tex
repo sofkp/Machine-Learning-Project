@@ -1,14 +1,28 @@
 \section{Introducción y formulación del problema}
 \label{sec:intro}
 
-La retención de clientes es una de las principales prioridades estratégicas en las empresas de telecomunicaciones. En mercados altamente competitivos, la pérdida de clientes no solo reduce los ingresos mensuales, sino que además incrementa los costos asociados a la adquisición de nuevos usuarios y puede deteriorar la estabilidad del portafolio de clientes. En este contexto, comprender qué factores explican la salida de clientes resulta esencial para diseñar políticas de retención, mejorar la experiencia del usuario y optimizar los servicios ofrecidos.
+La retención de clientes es una de las principales prioridades estratégicas en
+las empresas de telecomunicaciones. En mercados altamente competitivos, la pérdida
+de clientes no solo reduce los ingresos mensuales, sino que además incrementa los
+costos asociados a la adquisición de nuevos usuarios y puede deteriorar la estabilidad
+del portafolio de clientes. En este contexto, comprender qué factores explican la salida
+de clientes resulta esencial para diseñar políticas de retención, mejorar la experiencia
+del usuario y optimizar los servicios ofrecidos.
 
-\emph{Churn} se define como la decisión de un cliente de abandonar un servicio o cambiar de proveedor. En la práctica, este fenómeno resulta observable a través de datos históricos de comportamiento, uso del servicio, duración del contrato y variables de facturación. La capacidad de identificar tempranamente a clientes con alto riesgo de churn permite a la empresa intervenir de forma proactiva antes de que el cliente abandone por completo.
+\emph{Churn} se define como la decisión de un cliente de abandonar un servicio o cambiar
+de proveedor. En la práctica, este fenómeno resulta observable a través de datos históricos
+de comportamiento, uso del servicio, duración del contrato y variables de facturación.
+En un entorno operativo, identificar anticipadamente a clientes con riesgo de abandono podría facilitar intervenciones de retención.
 
-Este proyecto se centra en el análisis del conjunto de datos Telco Customer Churn~\cite{dataset}, una base ampliamente usada en el contexto de la predicción de retención. IBM lo presenta como información de ejemplo de una empresa ficticia~\cite{ibm}.
+Este proyecto se centra en el análisis del conjunto de datos Telco Customer Churn~\cite{dataset},
+una base ampliamente usada en el contexto de la predicción de retención. IBM lo presenta
+como información de ejemplo de una empresa ficticia~\cite{ibm}.
 
 \subsection{Objetivo}
-El objetivo principal es comprender el problema de churn desde una perspectiva estadística y analítica, formular la tarea de Machine Learning y comparar modelos supervisados interpretables para identificar clientes en riesgo de abandono. Asimismo, se busca comprender el contexto del problema y su relevancia empresarial; caracterizar el dataset y sus variables relevantes; detectar patrones de churn, riesgo de fuga de información, faltantes y anomalías; y evaluar rigurosamente el desempeño, las limitaciones y los sesgos de los modelos propuestos.
+El objetivo es analizar los patrones asociados al abandono de clientes y comparar modelos supervisados
+interpretables para su clasificación. Para ello, se evalúan la calidad y las relaciones de los datos,
+los métodos de preprocesamiento, el desempeño predictivo y las principales limitaciones y sesgos
+de los modelos.
 
 \subsection{Preguntas de investigación}
 \begin{enumerate}
@@ -37,3 +51,7 @@ donde $\hat{y}_i$ representa la predicción de si el cliente abandona el servici
 El conjunto de variables de entrada incluye características demográficas, condiciones del contrato, servicios contratados, pagos y métricas de uso. La variable objetivo, Churn, es binaria y resume la decisión final del cliente respecto a su continuidad con el proveedor.
 
 Desde la perspectiva del aprendizaje automático, el reto principal no solo reside en la predicción, sino en la correcta identificación de clientes en riesgo. Esto exige un análisis robusto de las relaciones entre variables, así como una evaluación orientada a métricas sensibles al desbalance de clases.
+
+Dado que el conjunto de datos no incluye fechas de observación ni un horizonte temporal de predicción, la tarea se plantea
+como una clasificación retrospectiva del abandono registrado. Por tanto, el desempeño obtenido no demuestra directamente
+la capacidad de anticipar abandonos futuros en un entorno operativo.

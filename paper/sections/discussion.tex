@@ -31,19 +31,26 @@ explican este comportamiento:
     la regresión logística, pero son pocos casos para alterar el balance global.
 \end{enumerate}
 
-Además, la diferencia entre familias es modesta porque el techo lo impone la información disponible.
-Ambos modelos coinciden en el 84.7\% de las predicciones de prueba y fallan conjuntamente en 61
-abandonos (16.3\%): estos clientes presentan una antigüedad mediana de 35 meses, 44.3\% de contrato
-mensual y 34.4\% de fibra óptica, un perfil casi idéntico al de quienes permanecen (38 meses,
-42.9\% y 34.9\%). Distinguirlos requeriría variables ausentes en el conjunto, como reclamos, fallas
-técnicas u ofertas de la competencia.
+Además, ambos modelos presentan dificultades compartidas para identificar determinados perfiles de abandono.
+Coinciden en el 84.7\% de las predicciones de prueba y fallan en 61 abandonos (16.3\%).
+Estos clientes presentan una antigüedad mediana de 35 meses, 44.3\% de contratos mensuales y 34.4\%
+de fibra óptica, valores cercanos a los observados entre quienes permanecen (38 meses, 42.9\% y 34.9\%, respectivamente).
 
-Finalmente, el tratamiento del desbalance (\var{class\_weight=\textquotedbl{}balanced\textquotedbl{}},
-que penaliza 2.77 veces más los falsos negativos) tuvo un impacto mucho mayor que la fuerza de
-regularización $C$. Permitió elevar sustancialmente el \emph{Recall}, pero llevó a señalar al 40.6\%
-de los clientes de prueba (572 alertas, la mitad falsas alarmas) y descalibró las probabilidades
-estimadas (media de 0.414 en regresión logística y 0.389 en el árbol frente a la tasa real de
-0.265).
+Esta similitud sugiere que las características disponibles no permiten distinguir fácilmente
+dichos casos mediante los modelos evaluados. Variables adicionales, como reclamos, fallas
+técnicas u ofertas de competidores, podrían aportar información relevante. Sin embargo,
+los resultados no permiten establecer un techo predictivo absoluto, pues también podrían
+existir mejoras mediante otros modelos o criterios de decisión.
+
+
+Finalmente, la ponderación de clases mediante \var{class\_weight=\textquotedbl{}balanced\textquotedbl{}}
+tuvo mayor influencia sobre el desempeño que las variaciones de regularización $C$ evaluadas.
+El mayor peso asignado a la clase positiva elevó sustancialmente el \emph{Recall}, a cambio de
+incrementar las falsas alarmas. En prueba, la regresión logística señaló al 40.6\% de los clientes
+(572 alertas, de las cuales 280 fueron falsas).
+Asimismo, ambos modelos presentaron probabilidades medias superiores a la prevalencia observada,
+lo que evidencia la necesidad de evaluar su calibración antes de utilizarlas como estimaciones
+individuales de riesgo.
 
 \subsection{Limitaciones}
 \textbf{Del conjunto de datos.} Es una muestra de ejemplo de una empresa ficticia~\cite{ibm} sin
@@ -61,11 +68,12 @@ muestral y la configuración óptima podría cambiar con otra semilla; además, 
 o 42 configuraciones introduce un ligero optimismo en validación respecto de prueba (0.625 a 0.617 en
 regresión logística; 0.619 a 0.599 en árbol). El umbral de decisión se mantuvo fijo en 0.5 al no
 contar con una matriz de costos reales de retención frente a pérdida de clientes, y solo se evaluaron
-dos familias de modelos sin ensambles ni ingeniería de interacciones. Por último, la codificación
-\emph{one-hot} completa introduce columnas redundantes (impidiendo interpretar coeficientes
-individuales sueltos, razón por la que se reportan contrastes de \emph{odds}) y la correlación entre
-\var{tenure} y \var{TotalCharges} (0.834 en entrenamiento) puede subestimar la importancia por
-permutación de cada variable por separado.
+dos familias de modelos sin ensambles ni ingeniería de interacciones. 
+Por último, la codificación \emph{one-hot} completa introduce dependencias entre columnas, por lo que
+se priorizan contrastes de \emph{odds} frente a coeficientes aislados. Asimismo, la correlación
+entre \var{tenure} y \var{TotalCharges} (0.834 en entrenamiento) puede reducir la importancia por
+permutación atribuida a cada variable. La permutación independiente también puede romper
+relaciones estructurales entre servicios.
 
 \textbf{De los resultados.} Los intervalos de confianza en prueba son amplios ($\approx\pm$0.04 en F1)
 y varios subgrupos tienen muy pocos abandonos (9 con contrato de dos años, 25 sin internet), lo que
@@ -83,8 +91,8 @@ debido a su mayor tasa base de abandono (44.1\% frente a 23.3\% en prueba).
 El efecto directo de la variable es pequeño (OR = 1.18): la disparidad surge sobre todo porque, en el
 conjunto completo, los adultos mayores presentan con mucha mayor frecuencia contrato mensual (70.7\%
 frente a 52.0\%) y fibra óptica (72.8\% frente a 38.4\%). Por tanto, excluir \var{SeniorCitizen} del
-entrenamiento no eliminaría la brecha, pues el contrato y el tipo de internet actuarían como
-variables sustitutas.
+entrenamiento no garantizaría eliminar esta disparidad, ya que variables como el contrato y
+el tipo de internet podrían actuar como predictores sustitutos.
 
 Las implicancias éticas dependen de cómo se operacionalice la alerta. Si activa beneficios o
 descuentos de retención, los adultos mayores resultan favorecidos y quedarían desatendidos quienes

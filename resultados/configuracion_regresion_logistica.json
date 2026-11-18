@@ -25,9 +25,9 @@
     "ROC-AUC": 0.8359593376217417
   },
   "versiones": {
-    "python": "3.12.13",
-    "numpy": "2.4.6",
-    "pandas": "2.2.3",
-    "scikit-learn": "1.6.1"
+    "python": "3.10.12",
+    "numpy": "2.2.6",
+    "pandas": "2.3.3",
+    "scikit-learn": "1.7.2"
   }
 }

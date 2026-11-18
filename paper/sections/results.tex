@@ -90,16 +90,19 @@ casi todo el rango.
 \end{figure}
 
 \subsection{Interpretación de los modelos}
-\textbf{Regresión logística.} La Tabla~\ref{tab:odds} presenta las principales razones de
-\emph{odds} (OR) del modelo, cada una respecto de la categoría más frecuente de su variable y con las
-demás características fijas. Un contrato de dos años multiplica los \emph{odds} de abandono por 0.24
-frente al contrato mensual, y no tener internet los multiplica por 0.19 frente a tener fibra óptica.
-Doce meses más de antigüedad con el mismo cargo mensual los multiplican por 0.69. En cambio, el
-género (OR = 1.05) casi no modifica la predicción. Estas direcciones coinciden con las del EDA. El
-OR de no tener telefonía (1.90) debe leerse con cuidado, porque es condicional al cargo mensual y a
-los demás servicios; en términos brutos esos clientes no abandonan más. Se reportan contrastes entre
-categorías y no coeficientes individuales porque, al codificar todas las categorías, hay columnas
-repetidas y esos coeficientes no son únicos.
+\textbf{Regresión logística.} La Tabla~\ref{tab:odds} presenta las principales razones de \emph{odds} (OR)
+obtenidas mediante contrastes entre perfiles hipotéticos del modelo, tomando como referencia la categoría más
+frecuente de cada variable. Un contrato de dos años multiplica los \emph{odds} estimados de abandono por
+0.24 frente al contrato mensual, mientras que no tener internet los multiplica por 0.19 frente a tener fibra
+óptica. Doce meses adicionales de antigüedad, manteniendo el cargo mensual y ajustando el cargo acumulado, los
+multiplican por 0.69. En contraste, el género (OR = 1.05) presenta una asociación estimada pequeña.
+
+Estas direcciones son consistentes con los patrones del EDA, pero no representan efectos causales. En particular,
+el OR de no tener telefonía (1.90) debe interpretarse con cautela, pues corresponde a una comparación condicionada
+a las demás características del perfil. Se reportan contrastes entre categorías en lugar de interpretar
+coeficientes aislados debido a las dependencias entre columnas generadas mediante \emph{one-hot encoding}.
+Aunque la regularización L2 permite obtener una solución única de coeficientes, los contrastes ofrecen una
+interpretación más útil bajo esta representación redundante.
 
 \begin{table}[t]
     \caption{Razones de \emph{odds} de la regresión logística respecto de la categoría de referencia}
@@ -148,8 +151,11 @@ misma escala. Los dos dependen de las mismas tres variables, \var{Contract}, \va
 \var{InternetService}, aunque con distinto reparto: la regresión logística se apoya sobre todo en
 \var{tenure} (el F1 cae 0.126 al desordenarla) y el árbol en \var{Contract} (0.180) e
 \var{InternetService} (0.138). Las demás variables aportan mucho menos, y \var{gender} no aporta de
-forma medible en ninguno. Cuando dos variables contienen información parecida, como \var{tenure} y
-\var{TotalCharges}, la importancia de cada una puede subestimarse.
+forma medible en ninguno. 
+La importancia individual puede subestimarse ante predictores correlacionados, como \var{tenure} y
+\var{TotalCharges}. Además, la permutación independiente de variables relacionadas puede generar combinaciones
+poco posibles, por lo que estos valores deben interpretarse como medidas de dependencia predictiva
+bajo la perturbación aplicada, no como efectos causales.
 
 \begin{figure}[t]
     \centering\includegraphics[width=\columnwidth]{importancia_permutacion.png}
@@ -217,6 +223,8 @@ decir, son clientes que abandonan con un perfil parecido al de quienes permanece
 son el caso inverso: el 94.3\% tiene contrato mensual y el 68.9\% fibra óptica.
 
 Por último, las probabilidades estimadas no están calibradas. En prueba, su media es 0.414 en la
-regresión logística y 0.389 en el árbol, frente a una tasa real de 0.265. Es una consecuencia directa
-de la ponderación de clases: las salidas sirven para ordenar a los clientes por riesgo y clasificar
-con el umbral 0.5, pero no deben leerse como la probabilidad real de abandono.
+regresión logística y 0.389 en el árbol, frente a una tasa real de 0.265.
+La ponderación de clases puede contribuir a esta sobreestimación, aunque no permite explicar por sí
+sola toda la diferencia. Por ello, las puntuaciones resultan útiles para ordenar clientes según el
+riesgo estimado y aplicar el umbral de clasificación, pero no deben interpretarse directamente como
+probabilidades reales de abandono sin una evaluación y calibración adicionales.

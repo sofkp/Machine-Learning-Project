@@ -75,7 +75,7 @@ de cero para \var{TotalCharges} y la codificación categórica, diferenciándose
 
 Para prevenir la fuga de información (\emph{data leakage}), las transformaciones que requieren
 aprender parámetros de los datos, como la identificación de categorías y el cálculo de estadísticas
-de estandarización, se ajustaron exclusivamente sobre el conjunto de entrenamiento. Posteriormente,
-las transformaciones aprendidas se aplicaron al conjunto de validación sin reajustarlas, siguiendo
-las recomendaciones de scikit-learn para evitar la incorporación de información externa al
-entrenamiento~\cite{leakage}.
+de estandarización, se ajustaron exclusivamente sobre el conjunto de entrenamiento.
+Las transformaciones aprendidas se aplicaron posteriormente a validación y prueba sin reajustarlas,
+siguiendo las recomendaciones de scikit-learn~\cite{leakage}.
+

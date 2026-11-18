@@ -4,9 +4,9 @@
 
 Se comparan tres clasificadores sobre las mismas 19 características y las mismas particiones: un
 clasificador de referencia, una regresión logística y un árbol de decisión. Los tres se implementan
-con scikit-learn~\cite{sklearn}. Los dos modelos supervisados son un \var{Pipeline} que une el
-preprocesador de la Sección~\ref{sec:prepro} con el estimador. Así, en cada ajuste la codificación y
-el escalamiento se aprenden únicamente con los datos de entrenamiento.
+con scikit-learn~\cite{sklearn}; los dos últimos, como un \var{Pipeline} que une el preprocesador de
+la Sección~\ref{sec:prepro} con el estimador. Así, en cada ajuste la codificación y el escalamiento
+se aprenden únicamente con los datos de entrenamiento.
 
 \subsection{Clasificador de referencia}
 Se usó \var{DummyClassifier} con la estrategia \var{most\_frequent}, que predice siempre la clase

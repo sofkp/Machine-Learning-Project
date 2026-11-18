@@ -57,14 +57,16 @@ Machine-Learning-Project/
 │   ├── P02_baseline_diseno_experimental.ipynb
 │   ├── P03_regresion_logistica.ipynb
 │   ├── P04_arbol_decision.ipynb
-│   └── P05_evaluacion_comparativa.ipynb
+│   ├── P05_evaluacion_comparativa.ipynb
+│   └── P06_discusion_conclusiones.ipynb
 ├── src/                      # Código reutilizado por P03, P04 y P05
 │   ├── protocolo.py          # Particiones, métricas y búsqueda en Validation
 │   ├── modelos.py            # Pipelines y grillas de hiperparámetros
 │   ├── analisis.py           # Interpretación, bootstrap y análisis de errores
 │   └── graficos.py           # Figuras
 ├── resultados/               # Tablas generadas por los notebooks (CSV, JSON y TXT)
-│   └── figuras/              # Figuras generadas por P03, P04 y P05
+│   └── figuras/              # Figuras generadas por P03, P04, P05 y P06
+├── slides/                   # Guion y plantilla Beamer para la presentación final
 └── paper/                    # Informe académico en LaTeX (P1 y P2)
     ├── main.tex
     ├── sections/
@@ -130,6 +132,7 @@ Abrir los notebooks en la carpeta `notebooks/` y ejecutar las celdas en orden. S
 4. `P03_regresion_logistica.ipynb`: búsqueda de hiperparámetros en Validation, regularización, tratamiento del desbalance e interpretación del modelo.
 5. `P04_arbol_decision.ipynb`: búsqueda de hiperparámetros en Validation, control del sobreajuste, tratamiento del desbalance e interpretación del árbol.
 6. `P05_evaluacion_comparativa.ipynb`: evaluación única de los tres modelos sobre Test, intervalos de confianza y análisis de errores.
+7. `P06_discusion_conclusiones.ipynb`: síntesis de hallazgos, análisis del techo de información, sesgos por subgrupo, limitaciones y conclusiones.
 
 P03 y P04 no usan Test. P05 debe ejecutarse al final, porque lee las configuraciones que guardan los dos anteriores.
 
@@ -229,7 +232,7 @@ Archivos generados en `resultados/`:
 - Interpretación: `razones_de_odds_regresion_logistica.csv`, `coeficientes_regresion_logistica.csv`, `reglas_arbol_decision.txt`, `hojas_arbol_decision.csv`, `importancias_arbol_decision.csv` e `importancia_permutacion_*_validacion.csv`.
 - Evaluación final: `comparacion_modelos_validacion_test.csv`, `intervalos_bootstrap_test.csv`, `diferencias_bootstrap_test.csv`, `matriz_confusion_*_test.csv` y `predicciones_test.csv`.
 - Análisis de errores: `errores_por_subgrupo_test.csv`, `coincidencia_errores_test.csv` y `perfil_errores_test.csv`.
-- Figuras: `figuras/p03_*.png`, `figuras/p04_*.png` y `figuras/p05_*.png`.
+- Figuras: `figuras/p03_*.png`, `figuras/p04_*.png`, `figuras/p05_*.png` y `figuras/p06_*.png`.
 
 La interpretación completa, las limitaciones y las conclusiones están en `docs/P06_discusion_limitaciones_conclusiones.md` y en el informe (`paper/`).
 

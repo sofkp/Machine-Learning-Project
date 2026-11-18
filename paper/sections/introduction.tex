@@ -1,23 +1,27 @@
 \section{Introducción y formulación del problema}
 \label{sec:intro}
 
-La retención de clientes es una de las principales prioridades estratégicas en las empresas de telecomunica-ciones. En mercados altamente competitivos, la pérdida de clientes no solo reduce los ingresos mensuales, sino queademás incrementa los costos asociados a la adquisición de nuevos usuarios y puede deteriorar la estabilidad del portafolio de clientes. En este contexto, comprender qué factores explican la salida de clientes resulta esencial para diseñar políticas de retención, mejorar la experiencia del usuario y optimizar los servicios ofrecidos.
+La retención de clientes es una de las principales prioridades estratégicas en las empresas de telecomunicaciones. En mercados altamente competitivos, la pérdida de clientes no solo reduce los ingresos mensuales, sino que además incrementa los costos asociados a la adquisición de nuevos usuarios y puede deteriorar la estabilidad del portafolio de clientes. En este contexto, comprender qué factores explican la salida de clientes resulta esencial para diseñar políticas de retención, mejorar la experiencia del usuario y optimizar los servicios ofrecidos.
 
-\emph{Churn} se define como la decisión de uncliente de abandonar un servicio o cambiar de proveedor. En la práctica, este fenómeno resulta observable a través de datos históricos de comportamiento, uso del servicio, duración del contrato y variables de facturación. La capacidad de identificar tempranamente a clientes con alto riesgo de churn permite a la empresa intervenir de forma proactiva antes de que el cliente abandone por completo.
+\emph{Churn} se define como la decisión de un cliente de abandonar un servicio o cambiar de proveedor. En la práctica, este fenómeno resulta observable a través de datos históricos de comportamiento, uso del servicio, duración del contrato y variables de facturación. La capacidad de identificar tempranamente a clientes con alto riesgo de churn permite a la empresa intervenir de forma proactiva antes de que el cliente abandone por completo.
 
 Este proyecto se centra en el análisis del conjunto de datos Telco Customer Churn~\cite{dataset}, una base ampliamente usada en el contexto de la predicción de retención. IBM lo presenta como información de ejemplo de una empresa ficticia~\cite{ibm}.
 
 \subsection{Objetivo}
-El objetivo principal es comprender el problema de churn desde una perspectiva estadística y analítica, formular la tarea de Machine Learning y preparar la base para el modelado supervisado en etapas posteriores. Asimismo, se busca comprender el contexto del problema y su relevancia empresarial; caracterizar el dataset y sus variables relevantes; detectar patrones de churn en los datos; identificar riesgo de leakage, faltantes y anomalías; así como preparar una base metodológica sólida para la etapa de modelado predictivo.
+El objetivo principal es comprender el problema de churn desde una perspectiva estadística y analítica, formular la tarea de Machine Learning y comparar modelos supervisados interpretables para identificar clientes en riesgo de abandono. Asimismo, se busca comprender el contexto del problema y su relevancia empresarial; caracterizar el dataset y sus variables relevantes; detectar patrones de churn, riesgo de fuga de información, faltantes y anomalías; y evaluar rigurosamente el desempeño, las limitaciones y los sesgos de los modelos propuestos.
 
 \subsection{Preguntas de investigación}
 \begin{enumerate}
-    \item ¿Qué características presentan diferencias en la proporción de abandono observado?
-    \item ¿Las diferencias por contrato se mantienen al comparar grupos de antigüedad similares?
-    \item ¿Cómo se relacionan el tipo de internet y los servicios adicionales con el abandono, y qué 
+    \item \textquestiondown Qué características presentan diferencias en la proporción de abandono observado?
+    \item \textquestiondown Las diferencias por contrato se mantienen al comparar grupos de antigüedad similares?
+    \item \textquestiondown Cómo se relacionan el tipo de internet y los servicios adicionales con el abandono, y qué 
     diferencias permanecen dentro de cada contrato?
-    \item ¿Qué problemas de calidad, representatividad y fuga de información deben considerarse antes 
+    \item \textquestiondown Qué problemas de calidad, representatividad y fuga de información deben considerarse antes 
     del modelado?
+    \item \textquestiondown En qué medida la regresión logística y el árbol de decisión permiten identificar clientes
+    que abandonan, en comparación con el clasificador de referencia?
+    \item \textquestiondown Qué diferencias presentan ambos modelos en su desempeño e interpretabilidad, y qué
+    características resultan relevantes?
 \end{enumerate}
 
 
@@ -33,4 +37,3 @@ donde $\hat{y}_i$ representa la predicción de si el cliente abandona el servici
 El conjunto de variables de entrada incluye características demográficas, condiciones del contrato, servicios contratados, pagos y métricas de uso. La variable objetivo, Churn, es binaria y resume la decisión final del cliente respecto a su continuidad con el proveedor.
 
 Desde la perspectiva del aprendizaje automático, el reto principal no solo reside en la predicción, sino en la correcta identificación de clientes en riesgo. Esto exige un análisis robusto de las relaciones entre variables, así como una evaluación orientada a métricas sensibles al desbalance de clases.
-

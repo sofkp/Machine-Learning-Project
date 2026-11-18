@@ -1,64 +1,96 @@
 % SOLO P2.
-% PROPUESTA de Alessandra para la sección 8, escrita a partir de los resultados de P03-P05.
-% Esta sección está asignada a Farid, Sebastian y Sofia: pueden usarla como base,
-% recortarla o reemplazarla. Todas las cifras salen de resultados/.
 \section{Discusión y limitaciones}
 \label{sec:discusion}
 
 \subsection{Interpretación de los resultados}
-Los dos modelos identifican a la mayoría de los clientes que abandonan y lo hacen apoyándose en las
-mismas variables. La regresión logística supera al árbol en \emph{Recall} y ROC-AUC y no se distingue
-de él en las demás métricas. Hay tres razones que lo explican.
+A primera vista, la exactitud en prueba apenas varía entre el clasificador de referencia (0.735), la
+regresión logística (0.743) y el árbol de decisión (0.744). Sin embargo, los dos modelos supervisados
+sí aportan valor predictivo: pasan de detectar 0 abandonos a identificar entre el 72\% y el 78\% de
+los 374 abandonos reales (292 y 270 clientes, respectivamente), cambiando aciertos sobre quienes
+permanecen por detección temprana de riesgo. La regresión logística supera al árbol en \emph{Recall}
+(+0.059 [0.016, 0.103]) y ROC-AUC (+0.023 [0.009, 0.040]), mientras que en F1 (+0.018 [$-$0.009,
+0.049]), \emph{Precision} y exactitud las diferencias caen dentro del ruido muestral. Tres razones
+explican este comportamiento:
 
-La primera es que la señal de estos datos es, en buena medida, aditiva y monótona. El EDA ya mostraba
-que las diferencias por contrato se mantienen dentro de cada grupo de antigüedad, y un modelo lineal
-en los \emph{log-odds} capta ese tipo de efecto con pocos parámetros, cada uno estimado con los 4225
-clientes de entrenamiento. La segunda es que el árbol reparte los datos: cada hoja estima su tasa con
-pocos clientes, a veces solo 20. Por eso produce apenas unos 100 valores distintos de probabilidad en
-prueba, frente a 1407 de la regresión logística; ordena a los clientes de forma más gruesa y tiene
-una brecha mayor entre entrenamiento y validación (0.066 frente a 0.012). La tercera es que las
-interacciones, que son la ventaja teórica del árbol, aportan poco aquí. Sí le permiten detectar 11 de
-los 25 abandonos entre clientes sin internet, donde la regresión logística no detecta ninguno, pero
-son pocos casos.
+\begin{enumerate}
+    \item \emph{Señal mayormente aditiva y monótona.} El EDA mostró que las diferencias por contrato
+    se mantienen dentro de cada tramo de antigüedad y que el abandono decrece sostenidamente con los
+    meses de permanencia. Un modelo lineal en los \emph{log-odds} representa esa estructura con 46
+    parámetros globales estimados sobre los 4225 clientes de entrenamiento.
 
-Aun así, la diferencia entre modelos es modesta y en F1 no es concluyente. Lo que parece limitar el
-desempeño no es el algoritmo sino la información disponible: los 61 abandonos que ningún modelo
-detecta tienen el perfil de un cliente estable, y faltan variables que podrían distinguirlos, como
-reclamos, calidad del servicio u ofertas de la competencia.
+    \item \emph{Fragmentación de datos en el árbol.} Cada división reduce el tamaño muestral en las
+    ramas hasta hojas con un mínimo de 20 clientes. En prueba, el árbol genera alrededor de 100
+    probabilidades distintas frente a 1407 de la regresión logística, lo que produce un ordenamiento
+    más grueso (menor ROC-AUC) y una mayor brecha de F1 entre entrenamiento y validación (0.066
+    frente a 0.012). De hecho, un árbol compacto de 8 hojas (\var{max\_depth=3}) alcanza F1 = 0.608 en
+    validación, estadísticamente indistinguible del árbol elegido de 132 hojas (diferencia 0.011,
+    IC 95\% [$-$0.014, 0.035]).
 
-La ponderación de clases fue la decisión con mayor efecto. Permite detectar cerca de tres de cada
-cuatro abandonos, pero a cambio la regresión logística señala al 40.6\% de los clientes de prueba
-(572 alertas) y la mitad son falsas alarmas. Si ese intercambio conviene depende del costo de una
-acción de retención frente al de perder un cliente, que aquí no se conoce.
+    \item \emph{Aporte limitado de interacciones.} La ventaja teórica del árbol solo se aprecia en
+    nichos específicos: entre clientes sin internet detecta 11 de 25 abandonos, frente a ninguno en
+    la regresión logística, pero son pocos casos para alterar el balance global.
+\end{enumerate}
+
+Además, la diferencia entre familias es modesta porque el techo lo impone la información disponible.
+Ambos modelos coinciden en el 84.7\% de las predicciones de prueba y fallan conjuntamente en 61
+abandonos (16.3\%): estos clientes presentan una antigüedad mediana de 35 meses, 44.3\% de contrato
+mensual y 34.4\% de fibra óptica, un perfil casi idéntico al de quienes permanecen (38 meses,
+42.9\% y 34.9\%). Distinguirlos requeriría variables ausentes en el conjunto, como reclamos, fallas
+técnicas u ofertas de la competencia.
+
+Finalmente, el tratamiento del desbalance (\var{class\_weight=\textquotedbl{}balanced\textquotedbl{}},
+que penaliza 2.77 veces más los falsos negativos) tuvo un impacto mucho mayor que la fuerza de
+regularización $C$. Permitió elevar sustancialmente el \emph{Recall}, pero llevó a señalar al 40.6\%
+de los clientes de prueba (572 alertas, la mitad falsas alarmas) y descalibró las probabilidades
+estimadas (media de 0.414 en regresión logística y 0.389 en el árbol frente a la tasa real de
+0.265).
 
 \subsection{Limitaciones}
-\textbf{Del conjunto de datos.} Es una muestra de ejemplo de una empresa ficticia~\cite{ibm} y no
-tiene fechas. No se sabe cuándo se registró cada variable respecto del abandono, no es posible una
-validación temporal y los resultados no se pueden generalizar a un operador real ni al mercado
-peruano.
+\textbf{Del conjunto de datos.} Es una muestra de ejemplo de una empresa ficticia~\cite{ibm} sin
+especificación del muestreo ni fechas de registro. Al ser una fotografía transversal, no permite
+realizar una validación temporal (entrenar en el pasado y evaluar en el futuro) ni descartar por
+completo una fuga temporal de origen; además, los resultados no son generalizables a un operador
+real ni al mercado peruano. La antigüedad (\var{tenure}) padece sesgo de supervivencia: describe a
+quienes no abandonaron antes, no la evolución causal de un cliente nuevo. Asimismo, la imputación con
+cero de los 11 valores faltantes de \var{TotalCharges} (\var{tenure=0}) constituye un supuesto
+metodológico no verificable.
 
-\textbf{De la metodología.} Se usó una sola partición y validación \emph{hold-out}. Con 1409
-clientes en validación, diferencias de 0.002 a 0.01 de F1 entre configuraciones están dentro del
-ruido, de modo que la configuración elegida podría cambiar con otra semilla; una validación cruzada
-daría una selección más estable. El umbral se fijó en 0.5 sin un análisis de costos. Solo se
-compararon dos familias de modelos, sin variables derivadas ni ensambles.
+\textbf{De la metodología.} Se empleó una sola partición estratificada (\emph{hold-out}, semilla 42).
+Con 1409 observaciones en validación, diferencias de 0.002 a 0.01 en F1 quedan dentro del ruido
+muestral y la configuración óptima podría cambiar con otra semilla; además, elegir el máximo entre 36
+o 42 configuraciones introduce un ligero optimismo en validación respecto de prueba (0.625 a 0.617 en
+regresión logística; 0.619 a 0.599 en árbol). El umbral de decisión se mantuvo fijo en 0.5 al no
+contar con una matriz de costos reales de retención frente a pérdida de clientes, y solo se evaluaron
+dos familias de modelos sin ensambles ni ingeniería de interacciones. Por último, la codificación
+\emph{one-hot} completa introduce columnas redundantes (impidiendo interpretar coeficientes
+individuales sueltos, razón por la que se reportan contrastes de \emph{odds}) y la correlación entre
+\var{tenure} y \var{TotalCharges} (0.834 en entrenamiento) puede subestimar la importancia por
+permutación de cada variable por separado.
 
-\textbf{De los resultados.} Los intervalos son amplios (cerca de $\pm$0.04 en F1) y varios subgrupos
-tienen muy pocos abandonos (9 con contrato de dos años, 25 sin internet), por lo que sus tasas son
-imprecisas. Las razones de \emph{odds} y las reglas del árbol describen asociaciones en datos
-observacionales: no demuestran que cambiar el contrato de un cliente reduzca su probabilidad de
-abandono. Además, las probabilidades no están calibradas.
+\textbf{De los resultados.} Los intervalos de confianza en prueba son amplios ($\approx\pm$0.04 en F1)
+y varios subgrupos tienen muy pocos abandonos (9 con contrato de dos años, 25 sin internet), lo que
+hace imprecisas sus tasas. Las razones de \emph{odds} y reglas reflejan asociaciones observacionales,
+no causalidad, y las probabilidades generadas sirven para ordenar por riesgo pero no están calibradas.
 
 \subsection{Sesgos, ética y generalización}
-El género prácticamente no influye en las predicciones ni en los errores. La variable
-\var{SeniorCitizen} sí merece atención: los adultos mayores que permanecen reciben una alerta casi el
-doble de veces que el resto (0.476 frente a 0.243 en la regresión logística). El efecto directo de la
-variable es pequeño (OR = 1.18). La diferencia proviene sobre todo de que, en el conjunto completo,
-estos clientes tienen con más frecuencia contrato mensual (70.7\% frente a 52.0\%) y fibra óptica
-(72.8\% frente a 38.4\%), por lo que quitar la variable probablemente no la eliminaría.
+El análisis por subgrupos muestra que \var{gender} es prácticamente neutro (OR = 1.05; \emph{Recall}
+de 0.782 frente a 0.779 y tasa de falsos positivos de 0.271 frente a 0.270 en regresión logística).
+En cambio, en \var{SeniorCitizen=1} (adultos mayores) la tasa de falsos positivos casi se duplica
+respecto del resto (0.476 frente a 0.243 en regresión logística; 0.411 frente a 0.226 en árbol), a la
+vez que suben el \emph{Recall} (0.929 frente a 0.728) y la \emph{Precision} (0.607 frente a 0.476)
+debido a su mayor tasa base de abandono (44.1\% frente a 23.3\% en prueba).
 
-Que esto sea un problema depende del uso. Si la alerta activa un descuento, el grupo señalado se
-beneficia y los perjudicados son los clientes con contratos largos, a quienes los modelos casi nunca
-señalan. Si activa un trato menos favorable, el perjuicio recae en los adultos mayores. Antes de
-cualquier uso real habría que validar los modelos con datos del operador, separados en el tiempo, y
-monitorear los errores por grupo.
+El efecto directo de la variable es pequeño (OR = 1.18): la disparidad surge sobre todo porque, en el
+conjunto completo, los adultos mayores presentan con mucha mayor frecuencia contrato mensual (70.7\%
+frente a 52.0\%) y fibra óptica (72.8\% frente a 38.4\%). Por tanto, excluir \var{SeniorCitizen} del
+entrenamiento no eliminaría la brecha, pues el contrato y el tipo de internet actuarían como
+variables sustitutas.
+
+Las implicancias éticas dependen de cómo se operacionalice la alerta. Si activa beneficios o
+descuentos de retención, los adultos mayores resultan favorecidos y quedarían desatendidos quienes
+tienen contratos largos (ningún modelo detectó los 9 abandonos con contrato de dos años). Si, por el
+contrario, la alerta motivara restricciones o tratos desfavorables, perjudicaría de forma
+desproporcionada a los adultos mayores. Asimismo, dado que el protocolo incluye atributos personales
+(\var{gender}, \var{SeniorCitizen}, \var{Partner} y \var{Dependents}), un despliegue real exigiría
+auditar su pertinencia normativa, validar con datos temporales propios del operador y monitorear
+continuamente los errores por grupo.
